@@ -9,7 +9,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UsedCarsDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Topi"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Coda"));
 });
 
 var app = builder.Build();
