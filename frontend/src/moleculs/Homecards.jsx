@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Homecard from "../atoms/Homecard";
 
-export default function Homecards(){
+export default function Homecards(props){
     const [cards,setCards]=useState([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1])
     return(
         <div className="container  p-1">

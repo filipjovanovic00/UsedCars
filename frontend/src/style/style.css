@@ -55,7 +55,7 @@
   /* Cena  */
 .custom-input-wrapper {
   border-radius: 4px;
-  width: 298px;
+  width: 100%;
   border: 1px solid #ced4da;
   position: relative;
 }
@@ -143,6 +143,24 @@
 
 .custom-arrow.custom-arrow-right {
   right: 10px;
+}
+
+/* */
+
+/* Dugme pretrage*/
+.search-button {
+  background-color: #097969;
+  border-color: #097969;
+  width: 75%; /* You can adjust the width as needed */
+  transition: background-color 0.3s; /* Add smooth transition effect */
+
+
+  &:hover {
+    background-color: #045f51;
+    border-color: #045f51;
+  }
+
+
 }
 
 /* */

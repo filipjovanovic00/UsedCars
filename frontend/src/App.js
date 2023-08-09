@@ -7,10 +7,33 @@ import Loginpage from './pages/Loginpage';
 import Header from './moleculs/Header';
 import Carview from './pages/Carview';
 import Backtotop from './atoms/Backtotop';
+import Headeruser from './moleculs/Headeruser';
+import Addad from './pages/Addad';
+import Profilepage from './pages/Profilepage';
 
 function App() {
 
+  function Alllayout(){
+    return(
+      <>
+      <Header />
+      <Outlet />
+      <Backtotop />
+      </>
+    );
+  }
+
   function Userlayout(){
+    return(
+      <>
+      <Headeruser />
+      <Outlet />
+      <Backtotop />
+      </>
+    );
+  }
+
+  function Adminlayout(){
     return(
       <>
       <Header />
@@ -23,7 +46,21 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Userlayout />}>
+        <Route path="/" element={<Alllayout />}>
+          <Route index element={<Homepage />} />
+          <Route path="carview" element={<Carview />}/>
+          <Route path="registration" element={<Registrationpage />}/>
+          <Route path="login" element={<Loginpage />}/>
+        </Route>
+        <Route path="/user" element={<Userlayout />}>
+          <Route index element={<Homepage />} />
+          <Route path="carview" element={<Carview />}/>
+          <Route path="registration" element={<Registrationpage />}/>
+          <Route path="login" element={<Loginpage />}/>
+          <Route path="addAd" element={<Addad />}/>
+          <Route path="profile" element={<Profilepage />}/>
+        </Route>
+        <Route path="/admin" element={<Adminlayout />}>
           <Route index element={<Homepage />} />
           <Route path="carview" element={<Carview />}/>
           <Route path="registration" element={<Registrationpage />}/>

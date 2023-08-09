@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Select from 'react-select';
+import { Link, useNavigate } from 'react-router-dom';
 import '../style/style.css'
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
+import axios from "axios";
 
-export default function Searchbar(){
+
+export default function Searchbar(props){
 
     const [mark,setMark]=useState("");
     const [type,setType]=useState("");
@@ -14,6 +17,8 @@ export default function Searchbar(){
     const [driveType,setDriveType]=useState("");
     const [gearBox,setGearBox]=useState("");
     const [activeTab, setActiveTab] = useState("cars");
+    const history = useNavigate();
+    const [errorSearch,setErrorSearch]=useState("");
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -84,6 +89,26 @@ export default function Searchbar(){
     const handlePrice = (e) => {
         setPrice(e.target.value);
     };
+
+    const searchIt=async(e)=>{
+        try {
+            /*var x = `http://localhost:8080/arrangements/get?`+
+            (search.name?"name="+search.name+"&":"") +
+            (search.city?"city="+search.city+"&":"") +
+            (search.country?"country="+search.country+"&":"") +
+            (search.continent?"continent="+search.continent+"&":"") +
+            (search.transportation?"transportation="+search.transportation+"&":"") +
+            (search.startdate?"startDate="+search.startdate+"&":"") +
+            (search.enddate?"endDate="+search.enddate+"&":"") +
+            `page=${page}&size=${size}`;*/
+            const response = await axios.get('http://localhost:8080/cars/search?id=2');
+            props.setCars(response.data.content);
+            props.setAfterSearch("yes");
+        } catch (error) {
+            setErrorSearch(error);
+        }
+    }
+
 
     return(
         <div className="container p-0 mb-5" style={{backgroundColor:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",}}>
@@ -252,16 +277,22 @@ export default function Searchbar(){
                 </div>
                 <div className="row justify-content-center p-3 my-1">
                     <div className="col-md-3">
-                        <div className="custom-input-wrapper">
+                        <div className="custom-input-wrapper" style={{display:'flex'}}>
                             <input 
                                 type="number" 
                                 placeholder="Cena do"  
                                 name="price"
                                 value={price}
                                 onChange={handlePrice} 
+                                style={{flex:'1'}}
                                 required>
                             </input>
                         </div>
+                    </div>
+                </div>
+                <div className="row justify-content-center pb-3 my-1">
+                    <div className="col-md-4 d-flex justify-content-center">
+                        <Link className="btn btn-success w-75 search-button" onClick={searchIt}><p className="m-0 p-0" style={{color:'white'}}>Pretrazi</p></Link>
                     </div>
                 </div>
             </div>
