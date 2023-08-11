@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using UsedCars.API.Data;
+using UsedCars.API.Repositories;
+using UsedCars.API.Repositories.Interfaces;
+using UsedCarsWebApi.Repositories;
+using UsedCarsWebApi.Repositories.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +13,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UsedCarsDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Coda"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Topi"));
 });
+
+builder.Services.AddScoped<ICarRepository, CarRepository>();
 
 var app = builder.Build();
 
