@@ -13,7 +13,7 @@ export default function Homepage(){
     return(
         <>
         <Searchbar setCars={setCars} setAfterSearch={setAfterSearch}/>
-        {afterSeacrh==="no"?<Homecards cars={cars}/>:<Searchcards cars={cars}/>}
+            {afterSeacrh==="no"?<Homecards cars={cars}/>:<Searchcards cars={cars}/>}
         </>
     )
 }

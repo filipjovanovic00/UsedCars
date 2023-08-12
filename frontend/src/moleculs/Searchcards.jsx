@@ -2,6 +2,7 @@ import React from "react";
 
 export default function Searchcards(props){
     return(
-        <h1>Search cards!!!</h1>
+        <h1>Kartice nakon pretrage</h1>
     );
+
 }

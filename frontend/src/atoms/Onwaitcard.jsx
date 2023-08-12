@@ -1,14 +1,14 @@
 import React from "react";
 import '../style/style.css';
 
-export default function Myaddscard(props){
-    return(
-        <div className="card m-1" style={{width: "100%",backgroundColor:'gray'}}>
+export default function Onwaitcard(props){
+    return (
+        <div className="card m-1 " style={{width: "100%",backgroundColor:'#993333'}}>
             <div className="row g-0">
                 <div className="col-md-4">
                     <img src={require('../images/car.jpg')} className="img-fluid rounded-start rounded-end m-1" alt="..." ></img>
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-8 pending-card">
                     <div className="card-body">
                         <div className="row">
                             <div className="col-md-8">

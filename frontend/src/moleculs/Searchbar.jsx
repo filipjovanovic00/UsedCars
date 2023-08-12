@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
-import '../style/style.css'
+import '../style/style.css';
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
 import axios from "axios";
 
