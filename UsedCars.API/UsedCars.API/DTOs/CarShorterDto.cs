@@ -1,8 +1,9 @@
-﻿using UsedCarsWebApi.Models;
+﻿using Microsoft.AspNetCore.Components;
+using UsedCarsWebApi.Models;
 
 namespace UsedCars.API.DTOs;
 
-public class CarShortDto
+public class CarShorterDto
 {
     public Guid Id { get; set; }
 
@@ -10,11 +11,9 @@ public class CarShortDto
 
     public string Model { get; set; }
 
-    public int Year { get; set; }
-
     public decimal Price { get; set; }
 
-    public Picture? Picture { get; set; }
+    public int Year { get; set; }
 
-    public string Location { get; set; }
+    public Picture? Picture { get; set; }
 }

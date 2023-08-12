@@ -6,6 +6,8 @@ public class CarDto
 {
     public Guid Id { get; set; }
 
+    public string Mark { get; set; }
+
     public string Model { get; set; }
 
     public int Year { get; set; }
@@ -20,11 +22,15 @@ public class CarDto
 
     public string? Description { get; set; }
 
-    public List<Picture>? Pictures { get; set; }
-
     public string Location { get; set; }
 
     public Guid UserId { get; set; }
 
     public string UserName { get; set; }
+
+    public string Phone { get; set; }
+
+    public string Email { get; set; }
+
+    public List<Picture>? Pictures { get; set; }
 }
