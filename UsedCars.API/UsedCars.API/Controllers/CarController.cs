@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
-using UsedCars.API.Repositories.Interfaces;
-using UsedCarsWebApi.Models;
 using UsedCarsWebApi.Repositories.Contracts;
 
 namespace UsedCars.API.Controllers;
@@ -115,6 +114,7 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     [Route("{id:Guid}")]
     [ProducesResponseType(200, Type = typeof(CarDto))]
     public async Task<IActionResult> GetCarById(Guid id)
