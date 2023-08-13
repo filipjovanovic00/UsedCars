@@ -50,7 +50,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Alllayout />}>
           <Route index element={<Homepage />} />
-          <Route path="carview" element={<Carview />}/>
+          <Route path="carview/:id" element={<Carview />}/>
           <Route path="registration" element={<Registrationpage />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using UsedCars.API.Data;
 using UsedCars.API.Repositories;
 using UsedCars.API.Repositories.Interfaces;
@@ -13,10 +14,21 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UsedCarsDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Topi"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Coda"));
 });
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -24,6 +36,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("AllowLocalhost3000");
 }
 
 app.UseHttpsRedirection();

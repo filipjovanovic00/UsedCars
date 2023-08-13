@@ -9,12 +9,16 @@ export default function Carview(){
     const {id}= useParams();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios.get("http://localhost:8080/car/get?id=" + id);
-            setCar(result.data);
-        };
-        fetchData();
-    },[id]);
+        const getCar=async(e)=>{
+            try {
+                const response = await axios.get("https://localhost:5001/api/Car/" + id);
+                setCar(response.data);
+            } catch (error) {
+                alert(error);
+            }
+        }
+        getCar();
+    },[]);
 
     return(
         <div className="container my-0 p-1">
