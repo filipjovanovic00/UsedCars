@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Myadds from "../moleculs/Myadds";
-import Addsonwait from "../moleculs/Addsonwait";
 import Savedsearch from "../moleculs/Savedsearch";
+import Onwaitcards from "../moleculs/Onwaitcards";
 
 export default function Profilepage(){
 
@@ -36,7 +36,7 @@ export default function Profilepage(){
             </div>
             <div className="row m-0 p-0" style={{backgroundColor:'#5968B8'}}>
                         {activeTab === "tab1" ? <div className="m-0 p-0"><Myadds /></div>  
-                                :(activeTab==="tab2"?<div className="m-0 p-0"><Addsonwait /></div>
+                                :(activeTab==="tab2"?<div className="m-0 p-0"><Onwaitcards /></div>
                                 :(activeTab==="tab3"?<div className="m-0 p-0"><Savedsearch /></div>
                                 :<div></div>))}
             </div>

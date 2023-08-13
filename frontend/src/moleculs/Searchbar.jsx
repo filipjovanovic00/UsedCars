@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
-import '../style/style.css'
+import '../style/style.css';
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
 import axios from "axios";
 
@@ -108,7 +108,6 @@ export default function Searchbar(props){
             setErrorSearch(error);
         }
     }
-
 
     return(
         <div className="container p-0 mb-5" style={{backgroundColor:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",}}>

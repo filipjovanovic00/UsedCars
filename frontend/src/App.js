@@ -10,6 +10,8 @@ import Backtotop from './atoms/Backtotop';
 import Headeruser from './moleculs/Headeruser';
 import Addad from './pages/Addad';
 import Profilepage from './pages/Profilepage';
+import Headeradmin from './moleculs/Headeradmin';
+import Adminwork from './pages/Adminwork';
 
 function App() {
 
@@ -36,7 +38,7 @@ function App() {
   function Adminlayout(){
     return(
       <>
-      <Header />
+      <Headeradmin />
       <Outlet />
       <Backtotop />
       </>
@@ -48,7 +50,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Alllayout />}>
           <Route index element={<Homepage />} />
-          <Route path="carview" element={<Carview />}/>
+          <Route path="carview/:id" element={<Carview />}/>
           <Route path="registration" element={<Registrationpage />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>
@@ -64,6 +66,7 @@ function App() {
           <Route index element={<Homepage />} />
           <Route path="carview" element={<Carview />}/>
           <Route path="registration" element={<Registrationpage />}/>
+          <Route path="addAd" element={<Adminwork />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>
 

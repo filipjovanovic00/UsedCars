@@ -12,7 +12,7 @@ using UsedCars.API.Data;
 namespace UsedCars.API.Migrations
 {
     [DbContext(typeof(UsedCarsDbContext))]
-    [Migration("20230811163728_First migration")]
+    [Migration("20230812155040_First migration")]
     partial class Firstmigration
     {
         /// <inheritdoc />
