@@ -10,12 +10,12 @@ export default function Searchbar(props){
 
     const [mark,setMark]=useState("");
     const [type,setType]=useState("");
-    const [yearOfManifacEnd,setYearOfManifacEnd]=useState(null);
-    const [yearOfManifacStart,setYearOfManifacStart]=useState(null);
+    const [yearEnd,setYearEnd]=useState(null);
+    const [yearStart,setYearStart]=useState(null);
     const [km,setKm]=useState("");
     const [price,setPrice]=useState("");
-    const [driveType,setDriveType]=useState("");
-    const [gearBox,setGearBox]=useState("");
+    const [drive,setDrive]=useState("");
+    const [gear,setGear]=useState("");
     const [activeTab, setActiveTab] = useState("cars");
     const history = useNavigate();
     const [errorSearch,setErrorSearch]=useState("");
@@ -49,30 +49,30 @@ export default function Searchbar(props){
     };
 
     const handleAgeEnd = (selectedOption) => {
-        if(yearOfManifacStart===null){
-            setYearOfManifacEnd(selectedOption);
+        if(yearStart===null){
+            setYearEnd(selectedOption);
         }else if(selectedOption!==null) { 
-                if(parseInt(selectedOption.value) > parseInt(yearOfManifacStart.value)){
-                    setYearOfManifacEnd(selectedOption);
+                if(parseInt(selectedOption.value) > parseInt(yearStart.value)){
+                    setYearEnd(selectedOption);
                 }else{
                     alert("Godina do godista je manja od godine od godista!");
                 }
         }else if (selectedOption===null){
-            setYearOfManifacEnd(selectedOption);
+            setYearEnd(selectedOption);
         } 
     };
 
     const handleAgeStart = (selectedOption) => {
-        if(yearOfManifacEnd===null){
-            setYearOfManifacStart(selectedOption);
+        if(yearEnd===null){
+            setYearStart(selectedOption);
         }else if(selectedOption!==null) { 
-                if(parseInt(selectedOption.value) < parseInt(yearOfManifacEnd.value)){
-                    setYearOfManifacStart(selectedOption);
+                if(parseInt(selectedOption.value) < parseInt(yearEnd.value)){
+                    setYearStart(selectedOption);
                 }else{
                     alert("Godina od godista je vece od godine do godista!");
                 }
         }else if (selectedOption===null){
-            setYearOfManifacStart(selectedOption);
+            setYearStart(selectedOption);
         } 
     };
 
@@ -81,11 +81,11 @@ export default function Searchbar(props){
     };
 
     const handleGear = (selectedOption) => {
-        setGearBox(selectedOption);
+        setGear(selectedOption);
     };
 
     const handleDrive = (selectedOption) => {
-        setDriveType(selectedOption);
+        setDrive(selectedOption);
     };
 
     const handlePrice = (e) => {
@@ -103,15 +103,15 @@ export default function Searchbar(props){
 
     const searchIt=async(e)=>{
         try {
-            /*var x = `http://localhost:8080/arrangements/get?`+
-            (search.name?"name="+search.name+"&":"") +
-            (search.city?"city="+search.city+"&":"") +
-            (search.country?"country="+search.country+"&":"") +
-            (search.continent?"continent="+search.continent+"&":"") +
-            (search.transportation?"transportation="+search.transportation+"&":"") +
-            (search.startdate?"startDate="+search.startdate+"&":"") +
-            (search.enddate?"endDate="+search.enddate+"&":"") +
-            `page=${page}&size=${size}`;*/
+            var x = `http://localhost:8080/arrangements/get?`+
+            (mark?"mark="+mark+"&":"") +
+            (type?"type="+type+"&":"") +
+            (yearStart?"yearStart="+yearStart+"&":"") +
+            (yearEnd?"yearEnd="+yearEnd+"&":"") +
+            (gear?"gear="+gear+"&":"") +
+            (drive?"drive="+drive+"&":"") +
+            (price?"price="+price+"&":"") +
+            (km?"km="+km:"");
             const response = await axios.get('http://localhost:8080/cars/search?id=2');
             props.setCars(response.data);
             props.loadedCars("yes");
@@ -178,7 +178,7 @@ export default function Searchbar(props){
                             <div className="col-md-6">
                                 <Select
                                     options={carAgeOptions}
-                                    value={yearOfManifacStart}
+                                    value={yearStart}
                                     onChange={handleAgeStart}
                                     isClearable
                                     isSearchable
@@ -203,7 +203,7 @@ export default function Searchbar(props){
                             <div className="col-md-6">
                                 <Select
                                     options={carAgeOptions}
-                                    value={yearOfManifacEnd}
+                                    value={yearEnd}
                                     onChange={handleAgeEnd}
                                     isClearable
                                     isSearchable
@@ -230,34 +230,22 @@ export default function Searchbar(props){
                 </div>
                 <div className="row justify-content-center p-3 my-1">
                     <div className="col-md-3">
-                        <Select
-                            options={optionsKm}
-                            value={km}
-                            onChange={handleKm}
-                            isClearable
-                            isSearchable
-                            placeholder="Predjena kilometraza"
-                            styles={{
-                            control: (provided, state) => ({
-                                ...provided,
-                                borderRadius: '4px',
-                                borderColor: state.isFocused ? '#80bdff' : '#ced4da',
-                                boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0, 123, 255, 0.25)' : null,
-                                '&:hover': {
-                                borderColor: state.isFocused ? '#80bdff' : '#adb5bd',
-                                },
-                            }),
-                            singleValue: (provided) => ({
-                                ...provided,
-                                color: '#000',
-                            }),
-                            }}
-                        />
+                        <div className="custom-input-wrapper" style={{display:'flex'}}>
+                            <input 
+                                type="number" 
+                                placeholder="Kilometraza do"  
+                                name="km"
+                                value={km}
+                                onChange={handleKm} 
+                                style={{flex:'1'}}
+                                required>
+                            </input>
+                        </div>
                     </div>
                     <div className="col-md-3">
                         <Select
                             options={optionsGear}
-                            value={gearBox}
+                            value={gear}
                             onChange={handleGear}
                             isClearable
                             isSearchable
@@ -282,7 +270,7 @@ export default function Searchbar(props){
                     <div className="col-md-3">
                         <Select
                             options={optionsDrive}
-                            value={driveType}
+                            value={drive}
                             onChange={handleDrive}
                             isClearable
                             isSearchable

@@ -29,11 +29,11 @@ export default function Homepage(){
     return(
         <>
         <Searchbar setCars={setCars} loadedCars={setLoaded}/>
-        {loaded==="yes"?<Homecards cars={cars}/>:<div className="container  d-flex justify-content-center align-items-center"> 
-                                                    <div className="spinner-border my-5" role="status">
-                                                        <span className="visually-hidden">Loading...</span>
-                                                    </div>
-                                                </div>}
+        {cars.length==0?(<div className="container  d-flex justify-content-center align-items-center"> 
+                                                <div className="spinner-border my-5" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>):(<Homecards cars={cars}/>)}
                                                
          </>
     )
