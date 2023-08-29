@@ -18,14 +18,22 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "ADMIN")]
+    //[Authorize(Roles = "ADMIN")]
     [Route("approved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
-    public async Task<IActionResult> GetApprovedCars([FromQuery] string? Mark)
+    public async Task<IActionResult> GetApprovedCars(
+        [FromQuery] string? mark,
+        [FromQuery] string? type,
+        [FromQuery] int? yearStart,
+        [FromQuery] int? yearEnd,
+        [FromQuery] string? gear,
+        [FromQuery] string? drive,
+        [FromQuery] int? price,
+        [FromQuery] int? km)
     {
         try
         {
-            var cars = await _carRepository.GetApprovedCarsAsync(Mark);
+            var cars = await _carRepository.GetApprovedCarsAsync(mark, type, yearStart, yearEnd, gear, drive, price, km);
 
             if (cars == null)
             {
