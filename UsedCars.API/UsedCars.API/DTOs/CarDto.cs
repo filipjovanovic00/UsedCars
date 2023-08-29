@@ -16,6 +16,8 @@ public class CarDto
 
     public decimal Price { get; set; }
 
+    public string CarBody { get; set; }
+
     public string DriveType { get; set; }
 
     public string GearboxType { get; set; }

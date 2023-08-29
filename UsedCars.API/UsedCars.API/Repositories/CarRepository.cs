@@ -38,16 +38,59 @@ public class CarRepository : ICarRepository
         return existingCar;
     }
 
-    public async Task<IEnumerable<Car>> GetApprovedCarsAsync(string? Mark = null)
+    public async Task<IEnumerable<Car>> GetApprovedCarsAsync(
+        string? mark = null,
+        string? type = null,
+        int? yearStart = null,
+        int? yearEnd = null,
+        string? gear = null,
+        string? drive = null,
+        int? price = null,
+        int? km = null)
     {
         var cars = _usedCarsDbContext.Cars
                 .Where(c => c.Approved)
                 .Include("Pictures")
                 .AsQueryable();
 
-        if (string.IsNullOrWhiteSpace(Mark) == false)
+        if (string.IsNullOrWhiteSpace(mark) == false)
         {
-            cars = cars.Where(x => x.Mark.Contains(Mark));
+            cars = cars.Where(x => x.Mark.Contains(mark));
+        }
+
+        if (string.IsNullOrWhiteSpace(type) == false)
+        {
+            cars = cars.Where(x => x.CarBody.Contains(type));
+        }
+
+        if (yearStart > 0)
+        {
+            cars = cars.Where(x => x.Year >= yearStart);
+        }
+
+        if (yearEnd > 0)
+        {
+            cars = cars.Where(x => x.Year <= yearEnd);
+        }
+
+        if (string.IsNullOrWhiteSpace(gear) == false)
+        {
+            cars = cars.Where(x => x.GearboxType.Contains(gear));
+        }
+
+        if (string.IsNullOrWhiteSpace(drive) == false)
+        {
+            cars = cars.Where(x => x.DriveType.Contains(drive));
+        }
+
+        if (price > 0)
+        {
+            cars = cars.Where(x => x.Price <= price);
+        }
+
+        if (km > 0)
+        {
+            cars = cars.Where(x => x.Mileage <= km);
         }
 
         return await cars.ToListAsync();
@@ -70,6 +113,7 @@ public class CarRepository : ICarRepository
                             Year = car.Year,
                             Mileage = car.Mileage,
                             Price = car.Price,
+                            CarBody = car.CarBody,
                             DriveType = car.DriveType,
                             GearboxType = car.GearboxType,
                             Description = car.Description,
