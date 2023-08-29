@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
 import Select from 'react-select';
 import { Link } from "react-router-dom";
+import Locationinput from "../atoms/Locationinput";
 
 export default function Addad(){
 
@@ -251,9 +252,11 @@ export default function Addad(){
                             />
                         </div>
                     </div>
+                    <div className="row justify-content-center p-3 my-1">
+                        <Locationinput />
+                    </div>
                 </div>
             </div>
         </div>
-        
     )
 }

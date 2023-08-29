@@ -19,6 +19,8 @@ export default function Searchbar(props){
     const [activeTab, setActiveTab] = useState("cars");
     const history = useNavigate();
     const [errorSearch,setErrorSearch]=useState("");
+    const [searchToast,setSearchToast]=useState("no");
+    const [saveSearchText,setSaveSearchText]=useState("no text");
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -90,6 +92,15 @@ export default function Searchbar(props){
         setPrice(e.target.value);
     };
 
+    const startSave=()=>{
+        setSearchToast("yes");
+    }
+
+    const endSave=()=>{
+        setSearchToast("no");
+        setSaveSearchText("no text");
+    }
+
     const searchIt=async(e)=>{
         try {
             /*var x = `http://localhost:8080/arrangements/get?`+
@@ -102,14 +113,34 @@ export default function Searchbar(props){
             (search.enddate?"endDate="+search.enddate+"&":"") +
             `page=${page}&size=${size}`;*/
             const response = await axios.get('http://localhost:8080/cars/search?id=2');
-            props.setCars(response.data.content);
-            props.setAfterSearch("yes");
+            props.setCars(response.data);
+            props.loadedCars("yes");
         } catch (error) {
             setErrorSearch(error);
         }
     }
 
+    const saveSearch=async(e)=>{
+        try {
+            const response = await axios.post('http://localhost:8080/cars/search?id=2');
+            setSaveSearchText("Pretraga je uspesno sacuvana");
+        } catch (error) {
+            alert("Trenutno nije moguce sacuvati pretragu. Molimo vas pokusajte kasnije. Hvala!");
+        }
+    }
+
     return(
+        <>
+        {searchToast==="yes"?<div className="row save-search">
+                                <div className="toast-body text-center">
+                                    {saveSearchText==="no text"?<p className="text-break">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>:<p className="text-break" style={{color:"green"}}>{saveSearchText}</p>}
+                                    <div className="mt-2 pt-2 border-top">
+                                        <button type="button" className="btn search-button mx-1" onClick={saveSearch}>Sacuvaj!</button>
+                                        <button type="button" className="btn btn-secondary mx-1" onClick={endSave}><i className="fa-solid fa-xmark" style={{color: '#000000'}}></i></button>
+                                     </div>
+                                </div>
+                            </div>
+                            :<span></span>}
         <div className="container p-0 mb-5" style={{backgroundColor:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",}}>
             <div className="row m-0 p-0">
                 <ul className="nav nav-tabs">
@@ -289,12 +320,18 @@ export default function Searchbar(props){
                         </div>
                     </div>
                 </div>
-                <div className="row justify-content-center pb-3 my-1">
-                    <div className="col-md-4 d-flex justify-content-center">
-                        <Link className="btn btn-success w-75 search-button" onClick={searchIt}><p className="m-0 p-0" style={{color:'white'}}>Pretrazi</p></Link>
+                <div className="row  pb-3 my-1 ">
+                    <div className="col-md-4 offset-md-4 d-flex justify-content-center">
+                        <button className="btn btn-success w-75 search-button" onClick={searchIt}><p className="m-0 p-0" style={{color:'white'}}>Pretrazi</p></button>
+                    </div>
+                    <div className="col-md-4">
+                            <div className="row justify-content-around">
+                                <button className="btn btn-success w-50 search-button" onClick={startSave}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
+        </>
     );
 };
