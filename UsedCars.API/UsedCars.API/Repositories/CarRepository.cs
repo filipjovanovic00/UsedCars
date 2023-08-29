@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Immutable;
 using UsedCars.API.Data;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
@@ -94,6 +95,17 @@ public class CarRepository : ICarRepository
         }
 
         return await cars.ToListAsync();
+    }
+
+    public async Task<IEnumerable<Car>> GetFirstApprovedCarsAsync()
+    {
+        var cars = await _usedCarsDbContext.Cars
+                .Where(c => c.Approved)
+                .Include("Pictures")
+                .Take(8)
+                .ToListAsync();
+
+        return cars;
     }
 
     public async Task<CarDto> GetCarByIdAsync(Guid id)

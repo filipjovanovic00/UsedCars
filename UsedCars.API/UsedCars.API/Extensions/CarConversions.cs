@@ -29,6 +29,7 @@ public static class CarConversions
                     Model = car.Model,
                     Price = car.Price,
                     Year = car.Year,
+                    Mileage = car.Mileage,
                     //Picture = car.Pictures[0],
                     Location = car.Location
                 }).ToList();
