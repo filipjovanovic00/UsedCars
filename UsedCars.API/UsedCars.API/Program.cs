@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
 using UsedCars.API.Data;
 using UsedCarsWebApi.Repositories;
 using UsedCarsWebApi.Repositories.Contracts;
@@ -17,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<UsedCarsDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Coda"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Topi"));
 });
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();

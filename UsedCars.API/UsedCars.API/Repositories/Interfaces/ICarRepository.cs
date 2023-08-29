@@ -5,7 +5,7 @@ namespace UsedCarsWebApi.Repositories.Contracts;
 
 public interface ICarRepository
 {
-    Task<IEnumerable<Car>> GetApprovedCarsAsync();
+    Task<IEnumerable<Car>> GetApprovedCarsAsync(string? Mark = null);
     Task<IEnumerable<Car>> GetNotApprovedCarsAsync();
     Task<IEnumerable<Car>> GetUsersApprovedCarsAsync(Guid userId);
     Task<IEnumerable<Car>> GetUsersNotApprovedCarsAsync(Guid userId);

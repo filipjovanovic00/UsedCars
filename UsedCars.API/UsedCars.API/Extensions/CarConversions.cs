@@ -15,7 +15,7 @@ public static class CarConversions
                     Model = car.Model,
                     Price = car.Price,
                     Year = car.Year,
-                    Picture = car.Pictures[0]
+                    //Picture = car.Pictures[0]
                 }).ToList();
     }
 
@@ -29,7 +29,7 @@ public static class CarConversions
                     Model = car.Model,
                     Price = car.Price,
                     Year = car.Year,
-                    Picture = car.Pictures[0],
+                    //Picture = car.Pictures[0],
                     Location = car.Location
                 }).ToList();
     }

@@ -38,14 +38,19 @@ public class CarRepository : ICarRepository
         return existingCar;
     }
 
-    public async Task<IEnumerable<Car>> GetApprovedCarsAsync()
+    public async Task<IEnumerable<Car>> GetApprovedCarsAsync(string? Mark = null)
     {
-        var cars = await _usedCarsDbContext.Cars
+        var cars = _usedCarsDbContext.Cars
                 .Where(c => c.Approved)
                 .Include("Pictures")
-                .ToListAsync();
+                .AsQueryable();
 
-        return cars;
+        if (string.IsNullOrWhiteSpace(Mark) == false)
+        {
+            cars = cars.Where(x => x.Mark.Contains(Mark));
+        }
+
+        return await cars.ToListAsync();
     }
 
     public async Task<CarDto> GetCarByIdAsync(Guid id)

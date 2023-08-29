@@ -18,13 +18,14 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "ADMIN")]
     [Route("approved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
-    public async Task<IActionResult> GetApprovedCars()
+    public async Task<IActionResult> GetApprovedCars([FromQuery] string? Mark)
     {
         try
         {
-            var cars = await _carRepository.GetApprovedCarsAsync();
+            var cars = await _carRepository.GetApprovedCarsAsync(Mark);
 
             if (cars == null)
             {
@@ -114,7 +115,6 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
     [Route("{id:Guid}")]
     [ProducesResponseType(200, Type = typeof(CarDto))]
     public async Task<IActionResult> GetCarById(Guid id)
