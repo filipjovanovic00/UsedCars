@@ -1,4 +1,5 @@
-﻿using UsedCars.API.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
+using UsedCars.API.DTOs;
 using UsedCarsWebApi.Models;
 
 namespace UsedCarsWebApi.Repositories.Contracts;
@@ -6,6 +7,8 @@ namespace UsedCarsWebApi.Repositories.Contracts;
 public interface ICarRepository
 {
     Task<IEnumerable<Car>> GetApprovedCarsAsync(
+        int pageNumber,
+        int pageSize,
         string? mark = null, 
         string? type = null, 
         int? yearStart = null,
@@ -20,5 +23,6 @@ public interface ICarRepository
     Task<IEnumerable<Car>> GetUsersNotApprovedCarsAsync(Guid userId);
     Task<CarDto> GetCarByIdAsync(Guid id);
     Task<Car> AddCarAsync(Car car);
-    Task<Car> DeleteCarAsync(Guid id);
+    Task ApproveCarAsync(Guid id);
+    Task DeleteCarAsync(Guid id);
 }
