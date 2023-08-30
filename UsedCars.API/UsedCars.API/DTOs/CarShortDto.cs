@@ -14,6 +14,8 @@ public class CarShortDto
 
     public decimal Price { get; set; }
 
+    public long Mileage { get; set; }
+
     public Picture? Picture { get; set; }
 
     public string Location { get; set; }

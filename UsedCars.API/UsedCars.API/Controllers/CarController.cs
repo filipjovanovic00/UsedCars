@@ -40,7 +40,32 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShorthDto();
+            var carsDto = cars.ConvertToCarShortherDto();
+
+            return Ok(carsDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    //[Authorize(Roles = "ADMIN")]
+    [Route("approvedfirst")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<CarShorterDto>))]
+    public async Task<IActionResult> GetApprovedFirstCars()
+    {
+        try
+        {
+            var cars = await _carRepository.GetFirstApprovedCarsAsync();
+
+            if (cars == null)
+            {
+                return NotFound();
+            }
+
+            var carsDto = cars.ConvertToCarShortherDto();
 
             return Ok(carsDto);
         }
@@ -52,7 +77,7 @@ public class CarController : ControllerBase
 
     [HttpGet]
     [Route("notapproved")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<CarShorterDto>))]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
     public async Task<IActionResult> GetNotApprovedCars()
     {
         try
@@ -64,7 +89,7 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShortherDto();
+            var carsDto = cars.ConvertToCarShorthDto();
 
             return Ok(carsDto);
         }

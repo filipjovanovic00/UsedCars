@@ -14,6 +14,7 @@ public interface ICarRepository
         string? drive = null,
         int? price = null,
         int? km = null);
+    Task<IEnumerable<Car>> GetFirstApprovedCarsAsync();
     Task<IEnumerable<Car>> GetNotApprovedCarsAsync();
     Task<IEnumerable<Car>> GetUsersApprovedCarsAsync(Guid userId);
     Task<IEnumerable<Car>> GetUsersNotApprovedCarsAsync(Guid userId);
