@@ -9,7 +9,6 @@ import axios from "axios";
 export default function Homepage(){
 
     const [cars,setCars]=useState([]);
-    const [loaded,setLoaded]=useState("no");
 
 
     const getCarsHome=async(e)=>{
@@ -28,7 +27,7 @@ export default function Homepage(){
 
     return(
         <>
-        <Searchbar setCars={setCars} loadedCars={setLoaded}/>
+        <Searchbar setCars={setCars} />
         {cars.length==0?(<div className="container  d-flex justify-content-center align-items-center"> 
                                                 <div className="spinner-border my-5" role="status">
                                                     <span className="visually-hidden">Loading...</span>

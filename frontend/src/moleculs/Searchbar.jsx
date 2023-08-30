@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../style/style.css';
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
 import axios from "axios";
+import jwt_decode from 'jwt-decode';
 
 
 export default function Searchbar(props){
@@ -21,6 +22,17 @@ export default function Searchbar(props){
     const [errorSearch,setErrorSearch]=useState("");
     const [searchToast,setSearchToast]=useState("no");
     const [saveSearchText,setSaveSearchText]=useState("no text");
+    const [decodedToken,setDecodedToken]=useState('')
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal(true);
+    };
+    
+      const closeModal = () => {
+        setShowModal(false);
+    };
+    
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -33,19 +45,11 @@ export default function Searchbar(props){
     };
 
     const handleMark = (selectedOption) => {
-        if (selectedOption.length <= 3) {
-            setMark(selectedOption);
-        }else{
-            alert("Moguce je odabrati tri opcije");
-        }
+        setMark(selectedOption);
     };
 
     const handleType = (selectedOption) => {
-        if (selectedOption.length <= 3) {
-            setType(selectedOption);
-        }else{
-            alert("Moguce je odabrati tri opcije");
-        }
+        setType(selectedOption);
     };
 
     const handleAgeEnd = (selectedOption) => {
@@ -76,8 +80,8 @@ export default function Searchbar(props){
         } 
     };
 
-    const handleKm = (selectedOption) => {
-        setKm(selectedOption);
+    const handleKm = (e) => {
+        setKm(e.target.value);
     };
 
     const handleGear = (selectedOption) => {
@@ -101,20 +105,32 @@ export default function Searchbar(props){
         setSaveSearchText("no text");
     }
 
+   /* const decodeJwt=()=>{
+
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImNmZWIwZTVlLTVkMDktNDY0YS04MmRkLWZlNWQzOWU0NWFkOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImZpbGlwakBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJGaWxpcCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJKb3Zhbm92aWMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImV4cCI6MTY5MzMzMjk0OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMS8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwLyJ9.ET2mLJqJh9-0-bzT63x7GvtmNwLxP5kkDL_PpHr0vuw';
+        const decoded=jwt_decode(token);
+        setDecodedToken(decoded);
+        console.log(decoded);
+
+        decodeJwt();
+        console.log(decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']);
+    }*/
+
     const searchIt=async(e)=>{
+        props.setCars([]);
         try {
-            var x = `http://localhost:8080/arrangements/get?`+
-            (mark?"mark="+mark+"&":"") +
-            (type?"type="+type+"&":"") +
-            (yearStart?"yearStart="+yearStart+"&":"") +
-            (yearEnd?"yearEnd="+yearEnd+"&":"") +
-            (gear?"gear="+gear+"&":"") +
-            (drive?"drive="+drive+"&":"") +
+            var x = `https://localhost:5001/api/Car/approved?`+
+            (mark?"mark="+mark.value+"&":"") +
+            (type?"type="+type.valueOf()+"&":"") +
+            (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
+            (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
+            (gear?"gear="+gear.value+"&":"") +
+            (drive?"drive="+drive.value+"&":"") +
             (price?"price="+price+"&":"") +
             (km?"km="+km:"");
-            const response = await axios.get('http://localhost:8080/cars/search?id=2');
+            const response = await axios.get(x);
             props.setCars(response.data);
-            props.loadedCars("yes");
+            console.log(yearStart);
         } catch (error) {
             setErrorSearch(error);
         }
@@ -131,17 +147,7 @@ export default function Searchbar(props){
 
     return(
         <>
-        {searchToast==="yes"?<div className="row save-search">
-                                <div className="toast-body text-center">
-                                    {saveSearchText==="no text"?<p className="text-break">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>:<p className="text-break" style={{color:"green"}}>{saveSearchText}</p>}
-                                    <div className="mt-2 pt-2 border-top">
-                                        <button type="button" className="btn search-button mx-1" onClick={saveSearch}>Sacuvaj!</button>
-                                        <button type="button" className="btn btn-secondary mx-1" onClick={endSave}><i className="fa-solid fa-xmark" style={{color: '#000000'}}></i></button>
-                                     </div>
-                                </div>
-                            </div>
-                            :<span></span>}
-        <div className="container p-0 mb-5" style={{backgroundColor:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",}}>
+        <div className="container p-0 mb-5 " style={{backgroundColor:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",}}>
             <div className="row m-0 p-0">
                 <ul className="nav nav-tabs">
                     <li className="nav-item tab-hover">
@@ -149,11 +155,21 @@ export default function Searchbar(props){
                     </li>
                 </ul>
             </div>
+            <div className={showModal ? "modal-overlay-active" : "modal-overlay"}>
+                    <div className="row m-1" style={{backgroundColor:'white'}}>
+                        <div className="toast-body text-center">
+                            {saveSearchText==="no text"?<p className="text-break my-1">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>:<p className="text-break" style={{color:"green"}}>{saveSearchText}</p>}
+                            <div className="mt-2 pt-2 border-top">
+                                <button type="button" className="btn search-button m-1" onClick={saveSearch}>Sacuvaj!</button>
+                                <button type="button" className="btn btn-secondary m-1" onClick={closeModal}><i className="fa-solid fa-xmark" style={{color: '#000000'}}></i></button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             <div className="row m-0 p-0" style={{backgroundColor:'#5968B8'}}>
                 <div className="row justify-content-center p-3 my-1">
                     <div className="col-md-3">
                         <Select options={optionsMark}
-                                isMulti
                                 value={mark}
                                 onChange={handleMark}
                                 isClearable
@@ -164,7 +180,6 @@ export default function Searchbar(props){
                     </div>
                     <div className="col-md-3">
                         <Select options={optionsType}
-                                isMulti
                                 value={type}
                                 onChange={handleType}
                                 isClearable
@@ -314,10 +329,11 @@ export default function Searchbar(props){
                     </div>
                     <div className="col-md-4">
                             <div className="row justify-content-around">
-                                <button className="btn btn-success w-50 search-button" onClick={startSave}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
+                                <button className="btn btn-success w-50 search-button" onClick={openModal}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
                             </div>
                     </div>
                 </div>
+                
             </div>
         </div>
         </>

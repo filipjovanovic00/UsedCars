@@ -83,15 +83,6 @@ export const optionsType = [
     { value: 'Pikap', label: 'Pikap' }
 ];
 
-export const optionsKm = [
-    { value: '0-5000', label: '0 - 5,000 km' },
-    { value: '5000-10000', label: '5,000 - 10,000 km' },
-    { value: '10000-30000', label: '10,000 - 30,000 km' },
-    { value: '30000-50000', label: '30,000 - 50,000 km' },
-    { value: '50000-100000', label: '50,000 - 100,000 km' },
-    { value: '100000+', label: '100,000+ km' }
-];
-
 export const optionsGear = [
     { value: 'Manuelni', label: 'Manuelni' },
     { value: 'Automatski', label: 'Automatski' }

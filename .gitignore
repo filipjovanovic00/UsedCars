@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+#Ignore Migrations because it is always created 
+UsedCars.API/UsedCars.API/Migrations/

@@ -261,3 +261,39 @@
   border-color: #045f51;
   transition: opacity 0.3s ease-in-out;
 }
+
+.box-trans {
+  transition: width 0.5s, height 0.5s, background-color 0.5s;
+}
+
+/* Save search pop-up */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-color: rgb(255, 254, 254);
+  z-index: -1; 
+  display: none; 
+}
+
+.modal-overlay-active {
+  z-index: 999;
+  display: block; 
+}
+
+.modal-overlay-active ~ * {
+  pointer-events: none;
+  opacity: 70%;
+}
+
+.left-column {
+  flex: 1;
+  overflow: auto; /* Enable scrolling for left column content */
+}
+
+.right-column {
+  position: sticky;
+  top: 20px; /* Adjust the value as needed */
+  /* Add other styles for the fixed right column */
+}

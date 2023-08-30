@@ -9,7 +9,7 @@ export default function Myadds(){
 
     const getAllApproved=async(e)=>{
         try {
-            const response = await axios.get('https://localhost:5001/api/Car/approved');
+            const response = await axios.get('https://localhost:5001/api/Car/approved');//Promeniti da se dobijaju odobreni automobili jednog korisnika
             console.log(response.data);
             setCars(response.data);
             console.log('Uspesno primljeni podaci');
