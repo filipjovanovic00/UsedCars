@@ -23,6 +23,12 @@ export default function Myadds(){
     },[])
 
     return(
-        <Myaddscards cars={cars}/>
+        <>
+        {cars.length==0?(<div className="container  d-flex justify-content-center align-items-center" style={{height:'300px'}}> 
+                                                <div className="spinner-border my-5" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>):(<Myaddscards cars={cars}/>)}
+        </>
     );
 }
