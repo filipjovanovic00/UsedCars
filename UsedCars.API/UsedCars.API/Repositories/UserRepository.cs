@@ -21,6 +21,12 @@ namespace UsedCars.API.Repositories
             _configuration = configuration;
         }
 
+        public async Task AddUserAsync(User user)
+        {
+            await _usedCarsDbContext.Users.AddAsync(user);
+            await _usedCarsDbContext.SaveChangesAsync();
+        }
+
         public async Task<User> Authenticate(UserLoginDto loginDto)
         {
             var currentUser = await _usedCarsDbContext.Users.FirstOrDefaultAsync(u => 

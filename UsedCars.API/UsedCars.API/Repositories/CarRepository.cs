@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.Immutable;
+using System.Linq;
 using UsedCars.API.Data;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
@@ -25,21 +27,17 @@ public class CarRepository : ICarRepository
         return car;
     }
 
-    public async Task<Car> DeleteCarAsync(Guid id)
+    public async Task DeleteCarAsync(Guid id)
     {
-        var existingCar = await _usedCarsDbContext.Cars.FirstOrDefaultAsync(x => x.Id == id);
+        var car = await _usedCarsDbContext.Cars.FirstOrDefaultAsync(x => x.Id == id);
 
-        if (existingCar == null)
-        {
-            return null;
-        }
-
-        _usedCarsDbContext.Cars.Remove(existingCar);
+        _usedCarsDbContext.Cars.Remove(car);
         await _usedCarsDbContext.SaveChangesAsync();
-        return existingCar;
     }
 
     public async Task<IEnumerable<Car>> GetApprovedCarsAsync(
+        int pageNumber,
+        int pageSize,
         string? mark = null,
         string? type = null,
         int? yearStart = null,
@@ -94,7 +92,9 @@ public class CarRepository : ICarRepository
             cars = cars.Where(x => x.Mileage <= km);
         }
 
-        return await cars.ToListAsync();
+        var skipResults = (pageNumber - 1) * pageSize;
+
+        return await cars.Skip(skipResults).Take(pageSize).ToListAsync();
     }
 
     public async Task<IEnumerable<Car>> GetFirstApprovedCarsAsync()
@@ -169,5 +169,14 @@ public class CarRepository : ICarRepository
                 .ToListAsync();
 
         return cars;
+    }
+
+    public async Task ApproveCarAsync(Guid id)
+    {
+        var car = await _usedCarsDbContext.Cars.FirstOrDefaultAsync(x => x.Id == id);
+
+        car.Approved = true;
+
+        await _usedCarsDbContext.SaveChangesAsync();
     }
 }

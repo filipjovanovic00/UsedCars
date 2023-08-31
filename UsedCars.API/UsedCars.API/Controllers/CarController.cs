@@ -29,18 +29,20 @@ public class CarController : ControllerBase
         [FromQuery] string? gear,
         [FromQuery] string? drive,
         [FromQuery] int? price,
-        [FromQuery] int? km)
+        [FromQuery] int? km,
+        [FromQuery] int pageNumber,
+        [FromQuery] int pageSize)
     {
         try
         {
-            var cars = await _carRepository.GetApprovedCarsAsync(mark, type, yearStart, yearEnd, gear, drive, price, km);
+            var cars = await _carRepository.GetApprovedCarsAsync(pageNumber, pageSize, mark, type, yearStart, yearEnd, gear, drive, price, km);
 
             if (cars == null)
             {
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShortherDto();
+            var carsDto = cars.ConvertToCarShorthDto();
 
             return Ok(carsDto);
         }
@@ -162,6 +164,38 @@ public class CarController : ControllerBase
             }
 
             return Ok(carDto);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut]
+    [Route("approvecar/{id:Guid}")]
+    public async Task<IActionResult> ApproveCar([FromRoute] Guid id)
+    {
+        try
+        {
+            await _carRepository.ApproveCarAsync(id);
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete]
+    [Route("deletecar/{id:Guid}")]
+    public async Task<IActionResult> DeleteCar([FromRoute] Guid id)
+    {
+        try
+        {
+            await _carRepository.DeleteCarAsync(id);
+
+            return Ok();
         }
         catch (Exception ex)
         {

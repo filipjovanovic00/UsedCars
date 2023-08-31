@@ -7,4 +7,5 @@ public interface IUserRepository
 {
     string Generate(User user);
     Task<User> Authenticate(UserLoginDto loginDto);
+    Task AddUserAsync(User user);
 }

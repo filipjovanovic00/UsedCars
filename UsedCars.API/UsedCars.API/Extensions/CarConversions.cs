@@ -1,4 +1,5 @@
 ﻿using UsedCars.API.DTOs;
+using UsedCarsWebApi.Enums;
 using UsedCarsWebApi.Models;
 
 namespace UsedCars.API.Extensions;
