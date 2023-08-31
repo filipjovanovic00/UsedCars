@@ -3,17 +3,16 @@ import { Link } from "react-router-dom";
 import Header from "../moleculs/Header";
 import Searchbar from "../moleculs/Searchbar";
 import Homecards from "../moleculs/Homecards";
-import Searchcards from "../moleculs/Searchcards";
 import axios from "axios";
+import Aftersearchcards from "../moleculs/Aftersearchcards";
 
 export default function Homepage(){
 
     const [cars,setCars]=useState([]);
 
-
     const getCarsHome=async(e)=>{
         try {
-            const response = await axios.get('https://localhost:5001/api/Car/approved');
+            const response = await axios.get('https://localhost:5001/api/Car/approvedfirst');
             setCars(response.data);
         } catch (error) {
             alert(error);
@@ -32,7 +31,7 @@ export default function Homepage(){
                                                 <div className="spinner-border my-5" role="status">
                                                     <span className="visually-hidden">Loading...</span>
                                                 </div>
-                                            </div>):(<Homecards cars={cars}/>)}
+                                            </div>):(<Homecards cars={cars} />)}
                                                
          </>
     )

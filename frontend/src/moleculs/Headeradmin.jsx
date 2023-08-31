@@ -4,12 +4,16 @@ import { Link } from "react-router-dom";
 
 export default function Headeradmin(){
 
-const logoutUser=() =>{
-    delete axios.defaults.headers.common["Authorization"];
-    localStorage.setItem('token',null);
-    localStorage.setItem('refreshToken',null);
-    localStorage.setItem('isloged', 'no');
-}
+    const logoutUser=() =>{
+        delete axios.defaults.headers.common["Authorization"];
+        localStorage.setItem('token', "");
+        localStorage.setItem('email', "");
+        localStorage.setItem('id', "");
+        localStorage.setItem('firstName', "");
+        localStorage.setItem('lastName', "");
+        localStorage.setItem('role', "");
+        localStorage.setItem('isloged', 'no');
+    }
 
     return(
         <header className=" mb-2">
@@ -28,7 +32,7 @@ const logoutUser=() =>{
                                 <Link className="btn btn-primary mx-1" type="button" to="/" style={{backgroundColor:"#097969",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}} onClick={logoutUser}>Odjavi se!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}} onClick={logoutUser} to="/">Odjavi se!</span></Link>
                             </div>
                         </div>
                     </div>

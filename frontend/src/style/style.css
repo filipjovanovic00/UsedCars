@@ -211,19 +211,19 @@
 
 
 .custom-btn-search {
-  background-color: #011265;
-  border-color: #011265;
+  background-color: #5968B8;
+  border-color: #5968B8;
   transition: background-color 0.3s;
 
 
   &:hover {
-    background-color: #02012e;
-    border-color: #02012e;
+    background-color: #020077;
+    border-color: #020077;
   }
 
   &:active {
-    background-color: #064c41;
-    border-color: #064c41;
+    background-color: #003386;
+    border-color: #003386;
   }
 
 }

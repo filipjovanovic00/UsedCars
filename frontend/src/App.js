@@ -12,6 +12,8 @@ import Addad from './pages/Addad';
 import Profilepage from './pages/Profilepage';
 import Headeradmin from './moleculs/Headeradmin';
 import Adminwork from './pages/Adminwork';
+import Aftersearch from './pages/Aftersearch';
+import ProtectedRoutes from './auth/Protectedroutes';
 
 function App() {
 
@@ -51,23 +53,29 @@ function App() {
         <Route path="/" element={<Alllayout />}>
           <Route index element={<Homepage />} />
           <Route path="carview/:id" element={<Carview />}/>
+          <Route path="search/:searchparam" element={<Aftersearch />}/>
+          <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
           <Route path="registration" element={<Registrationpage />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>
-        <Route path="/user" element={<Userlayout />}>
-          <Route index element={<Homepage />} />
-          <Route path="carview" element={<Carview />}/>
-          <Route path="registration" element={<Registrationpage />}/>
-          <Route path="login" element={<Loginpage />}/>
-          <Route path="addAd" element={<Addad />}/>
-          <Route path="profile" element={<Profilepage />}/>
+        <Route  element={<ProtectedRoutes />}>
+          <Route path="/user" element={<Userlayout />}>
+            <Route index element={<Homepage />} />
+            <Route path="carview" element={<Carview />}/>
+            <Route path="registration" element={<Registrationpage />}/>
+            <Route path="login" element={<Loginpage />}/>
+            <Route path="addAd" element={<Addad />}/>
+            <Route path="profile" element={<Profilepage />}/>
+          </Route>
         </Route>
-        <Route path="/admin" element={<Adminlayout />}>
-          <Route index element={<Homepage />} />
-          <Route path="carview" element={<Carview />}/>
-          <Route path="registration" element={<Registrationpage />}/>
-          <Route path="addAd" element={<Adminwork />}/>
-          <Route path="login" element={<Loginpage />}/>
+        <Route  element={<ProtectedRoutes />}>
+          <Route path="/admin" element={<Adminlayout />}>
+            <Route index element={<Homepage />} />
+            <Route path="carview" element={<Carview />}/>
+            <Route path="registration" element={<Registrationpage />}/>
+            <Route path="addAd" element={<Adminwork />}/>
+            <Route path="login" element={<Loginpage />}/>
+          </Route>
         </Route>
 
         {/*

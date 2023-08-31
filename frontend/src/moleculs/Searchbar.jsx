@@ -24,8 +24,19 @@ export default function Searchbar(props){
     const [saveSearchText,setSaveSearchText]=useState("no text");
     const [decodedToken,setDecodedToken]=useState('')
     const [showModal, setShowModal] = useState(false);
+    const [search,setSearch]=useState('');
+    const [searchForParam,setSearchForParam]=useState("eee")
 
     const openModal = () => {
+        const x =(mark?"'"+mark.value+"', ":"") +
+        (type?"'"+type.valueOf()+"' ,":"") +
+        (yearStart!==null?"'"+yearStart.value+"' ,":"") +
+        (yearEnd!==null?"'"+yearEnd.value+"' ,":"") +
+        (gear?"'"+gear.value+"' ,":"") +
+        (drive?"'"+drive.value+"' ,":"") +
+        (price?"'"+price+"' ,":"") +
+        (km?"'"+km+"' ,":"");
+        setSearch(x);
         setShowModal(true);
     };
     
@@ -96,15 +107,6 @@ export default function Searchbar(props){
         setPrice(e.target.value);
     };
 
-    const startSave=()=>{
-        setSearchToast("yes");
-    }
-
-    const endSave=()=>{
-        setSearchToast("no");
-        setSaveSearchText("no text");
-    }
-
    /* const decodeJwt=()=>{
 
         const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImNmZWIwZTVlLTVkMDktNDY0YS04MmRkLWZlNWQzOWU0NWFkOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImZpbGlwakBnbWFpbC5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJGaWxpcCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3N1cm5hbWUiOiJKb3Zhbm92aWMiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImV4cCI6MTY5MzMzMjk0OCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMS8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDozMDAwLyJ9.ET2mLJqJh9-0-bzT63x7GvtmNwLxP5kkDL_PpHr0vuw';
@@ -116,30 +118,31 @@ export default function Searchbar(props){
         console.log(decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']);
     }*/
 
-    const searchIt=async(e)=>{
-        props.setCars([]);
-        try {
-            var x = `https://localhost:5001/api/Car/approved?`+
-            (mark?"mark="+mark.value+"&":"") +
-            (type?"type="+type.valueOf()+"&":"") +
-            (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
-            (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
-            (gear?"gear="+gear.value+"&":"") +
-            (drive?"drive="+drive.value+"&":"") +
-            (price?"price="+price+"&":"") +
-            (km?"km="+km:"");
-            const response = await axios.get(x);
-            props.setCars(response.data);
-            console.log(yearStart);
-        } catch (error) {
-            setErrorSearch(error);
-        }
+    const prepareSearch=async(e)=>{
+        setSearchForParam((mark?"mark="+mark.value+"&":"") +
+        (type?"type="+type.value+"&":"") +
+        (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
+        (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
+        (gear?"gear="+gear.value+"&":"") +
+        (drive?"drive="+drive.value+"&":"") +
+        (price?"price="+price+"&":"") +
+        (km?"km="+km:""));
     }
 
+    const searchIt=()=>{
+        
+    }
+
+    useEffect(()=>{
+        prepareSearch();
+    },[mark,type,yearStart,yearEnd,gear,drive,price])
+
     const saveSearch=async(e)=>{
+        const userId="cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9";//localStorage.getItem("id");
         try {
-            const response = await axios.post('http://localhost:8080/cars/search?id=2');
-            setSaveSearchText("Pretraga je uspesno sacuvana");
+            const response = await axios.post('https://localhost:5001/api/SavedSearch',{search,userId});
+            alert("Pretraga je uspesno sacuvana!");
+            setShowModal(false);
         } catch (error) {
             alert("Trenutno nije moguce sacuvati pretragu. Molimo vas pokusajte kasnije. Hvala!");
         }
@@ -158,7 +161,9 @@ export default function Searchbar(props){
             <div className={showModal ? "modal-overlay-active" : "modal-overlay"}>
                     <div className="row m-1" style={{backgroundColor:'white'}}>
                         <div className="toast-body text-center">
-                            {saveSearchText==="no text"?<p className="text-break my-1">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>:<p className="text-break" style={{color:"green"}}>{saveSearchText}</p>}
+                            <p className="text-break my-1 p-0">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>
+                            <br></br>
+                            <p className="text-break my-0 p-0">{search}</p>
                             <div className="mt-2 pt-2 border-top">
                                 <button type="button" className="btn search-button m-1" onClick={saveSearch}>Sacuvaj!</button>
                                 <button type="button" className="btn btn-secondary m-1" onClick={closeModal}><i className="fa-solid fa-xmark" style={{color: '#000000'}}></i></button>
@@ -325,7 +330,7 @@ export default function Searchbar(props){
                 </div>
                 <div className="row  pb-3 my-1 ">
                     <div className="col-md-4 offset-md-4 d-flex justify-content-center">
-                        <button className="btn btn-success w-75 search-button" onClick={searchIt}><p className="m-0 p-0" style={{color:'white'}}>Pretrazi</p></button>
+                        <Link className="btn btn-success w-75 search-button" to={`search/${searchForParam}`} onClick={searchIt}><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
                     </div>
                     <div className="col-md-4">
                             <div className="row justify-content-around">
