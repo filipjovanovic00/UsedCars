@@ -27,7 +27,16 @@ namespace UsedCars.API.Controllers
             if (user != null)
             {
                 var token = _userRepository.Generate(user);
-                return Ok(token);
+
+                return Ok(new
+                {
+                    Token = token,
+                    user.Id,
+                    user.FirstName,
+                    user.LastName,
+                    user.Role,
+                    user.Email
+                });
             }
 
             return NotFound("User not found!");
