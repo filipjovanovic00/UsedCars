@@ -516,7 +516,7 @@ public class UsedCarsDbContext : DbContext
                     FirstName = "Filip",
                     LastName = "Jovanovic",
                     Email = "filipj@gmail.com",
-                    Phone = "number",
+                    Phone = "062 3856 142",
                     Password = "password1",
                     Role = Role.ADMIN
                 },
@@ -526,7 +526,7 @@ public class UsedCarsDbContext : DbContext
                     FirstName = "Danilo",
                     LastName = "Stevanovic",
                     Email = "danilos@gmail.com",
-                    Phone = "number",
+                    Phone = "065 9934 376",
                     Password = "password2",
                     Role = Role.ADMIN
                 },
@@ -536,7 +536,7 @@ public class UsedCarsDbContext : DbContext
                     FirstName = "Filip",
                     LastName = "Carovic",
                     Email = "filipc@gmail.com",
-                    Phone = "number",
+                    Phone = "060 9603 672",
                     Password = "password3",
                     Role = Role.USER
                 }

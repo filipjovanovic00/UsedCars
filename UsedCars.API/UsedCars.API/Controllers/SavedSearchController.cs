@@ -22,8 +22,7 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
-    // [Route("{id:Guid}")]
+    [Authorize(Roles = "ADMIN,USER")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<SavedSearch>))]
     public async Task<IActionResult> GetUsersSavedSearch()
     {
@@ -51,7 +50,7 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "ADMIN,USER")]
     public async Task<IActionResult> AddSavedSearch([FromBody] AddSavedSearchDto addSavedSearchDto)
     {
         try
@@ -72,6 +71,7 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = "ADMIN,USER")]
     [Route("{id:Guid}")]
     public async Task<IActionResult> DeleteSavedSearch([FromRoute] Guid id)
     {

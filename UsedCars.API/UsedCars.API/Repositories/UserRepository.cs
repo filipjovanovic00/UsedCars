@@ -57,10 +57,17 @@ namespace UsedCars.API.Repositories
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(20),
+                expires: DateTime.Now.AddMinutes(1440),
                 signingCredentials: credentials);
             
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public async Task<User> GetUserAsync(Guid id)
+        {
+            var user = await _usedCarsDbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+
+            return user;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
 using UsedCarsWebApi.Repositories.Contracts;
@@ -18,7 +19,6 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(Roles = "ADMIN")]
     [Route("approved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
     public async Task<IActionResult> GetApprovedCars(
@@ -53,7 +53,6 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    //[Authorize(Roles = "ADMIN")]
     [Route("approvedfirst")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShorterDto>))]
     public async Task<IActionResult> GetApprovedFirstCars()
@@ -78,6 +77,7 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "ADMIN")]
     [Route("notapproved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
     public async Task<IActionResult> GetNotApprovedCars()
@@ -102,12 +102,17 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    [Route("usernotapproved/{id:Guid}")]
+    [Authorize(Roles = "ADMIN,USER")]
+    [Route("usernotapproved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
-    public async Task<IActionResult> GetUsersNotApprovedCars([FromRoute] Guid id)
+    public async Task<IActionResult> GetUsersNotApprovedCars()
     {
         try
         {
+            var userClaims = User as ClaimsPrincipal;
+            var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid id = Guid.Parse(userId);
+
             var cars = await _carRepository.GetUsersNotApprovedCarsAsync(id);
 
             if (cars == null)
@@ -126,12 +131,17 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
-    [Route("userapproved/{id:Guid}")]
+    [Authorize(Roles = "ADMIN,USER")]
+    [Route("userapproved")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CarShortDto>))]
-    public async Task<IActionResult> GetUsersApprovedCars([FromRoute] Guid id)
+    public async Task<IActionResult> GetUsersApprovedCars()
     {
         try
         {
+            var userClaims = User as ClaimsPrincipal;
+            var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid id = Guid.Parse(userId);
+
             var cars = await _carRepository.GetUsersApprovedCarsAsync(id);
 
             if (cars == null)
@@ -172,6 +182,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Roles = "ADMIN")]
     [Route("approvecar/{id:Guid}")]
     public async Task<IActionResult> ApproveCar([FromRoute] Guid id)
     {
@@ -188,6 +199,7 @@ public class CarController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = "ADMIN,USER")]
     [Route("deletecar/{id:Guid}")]
     public async Task<IActionResult> DeleteCar([FromRoute] Guid id)
     {

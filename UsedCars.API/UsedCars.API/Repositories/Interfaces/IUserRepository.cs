@@ -9,5 +9,5 @@ public interface IUserRepository
     string Generate(User user);
     Task<User> Authenticate(UserLoginDto loginDto);
     Task AddUserAsync(User user);
-    Task<UserDto> GetCarByIdAsync(Guid id);
+    Task<User> GetUserAsync(Guid id);
 }
