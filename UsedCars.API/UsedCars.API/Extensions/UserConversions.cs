@@ -19,4 +19,17 @@ public static class UserConversions
             Role = Role.USER
         };
     }
+
+    public static UserDto ConvertToUserDto(this User user)
+    {
+        return new UserDto
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Phone = user.Phone,
+            Email = user.Email,
+            Role = user.Role
+        };
+    }
 }

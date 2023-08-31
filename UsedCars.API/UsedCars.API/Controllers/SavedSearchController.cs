@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
 using UsedCars.API.Repositories;
@@ -20,12 +22,16 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id:Guid}")]
+    [Authorize(Roles = "ADMIN,USER")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<SavedSearch>))]
-    public async Task<IActionResult> GetUsersSavedSearch([FromRoute] Guid id)
+    public async Task<IActionResult> GetUsersSavedSearch()
     {
         try
         {
+            var userClaims = User as ClaimsPrincipal;
+            var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid id = Guid.Parse(userId);
+
             var search = await _savedSearchRepository.GetUsersSavedSearchAsync(id);
 
             if (search == null)
@@ -44,11 +50,16 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "ADMIN,USER")]
     public async Task<IActionResult> AddSavedSearch([FromBody] AddSavedSearchDto addSavedSearchDto)
     {
         try
         {
-            var search = addSavedSearchDto.ConvertToSavedSearch();
+            var userClaims = User as ClaimsPrincipal;
+            var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid id = Guid.Parse(userId);
+
+            var search = addSavedSearchDto.ConvertToSavedSearch(id);
             await _savedSearchRepository.AddSavedSearchAsync(search);
 
             return Ok();
@@ -60,6 +71,7 @@ public class SavedSearchController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Roles = "ADMIN,USER")]
     [Route("{id:Guid}")]
     public async Task<IActionResult> DeleteSavedSearch([FromRoute] Guid id)
     {

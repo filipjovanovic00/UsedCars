@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
 using UsedCars.API.Repositories.Interfaces;
@@ -27,7 +28,16 @@ namespace UsedCars.API.Controllers
             if (user != null)
             {
                 var token = _userRepository.Generate(user);
-                return Ok(token);
+
+                return Ok(new
+                {
+                    Token = token,
+                    user.Id,
+                    user.FirstName,
+                    user.LastName,
+                    user.Role,
+                    user.Email
+                });
             }
 
             return NotFound("User not found!");
@@ -43,6 +53,34 @@ namespace UsedCars.API.Controllers
                 await _userRepository.AddUserAsync(user);
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "ADMIN,USER")]
+        [ProducesResponseType(200, Type = typeof(UserDto))]
+        public async Task<IActionResult> GetUser()
+        {
+            try
+            {
+                var userClaims = User as ClaimsPrincipal;
+                var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                Guid id = Guid.Parse(userId);
+
+                var user = await _userRepository.GetUserAsync(id);
+
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                var userDto = user.ConvertToUserDto();
+
+                return Ok(userDto);
             }
             catch (Exception ex)
             {

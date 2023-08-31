@@ -16,13 +16,13 @@ public static class SavedSearchConversions
                 }).ToList();
     }
 
-    public static SavedSearch ConvertToSavedSearch(this AddSavedSearchDto addSavedSearchDto)
+    public static SavedSearch ConvertToSavedSearch(this AddSavedSearchDto addSavedSearchDto, Guid id)
     {
         return new SavedSearch
         {
             Id = Guid.NewGuid(),
             Search = addSavedSearchDto.Search,
-            UserId = addSavedSearchDto.UserId
+            UserId = id
         };
     }
 }
