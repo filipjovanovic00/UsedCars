@@ -70,4 +70,23 @@ public static class CarConversions
             Email = car.Email
         };
     }
+
+    public static Car ConvertToCar(this AddCarDto addCarDto, Guid userId, Guid id)
+    {
+        return new Car
+        {
+            Id = id,
+            Mark = addCarDto.Mark,
+            Model = addCarDto.Model,
+            Year = addCarDto.Year,
+            Mileage = addCarDto.Mileage,
+            Price = addCarDto.Price,
+            CarBody = addCarDto.CarBody,
+            DriveType = addCarDto.DriveType,
+            GearboxType = addCarDto.GearboxType,
+            Description = addCarDto.Description,
+            Location = addCarDto.Location,
+            UserId = userId
+        };
+    }
 }

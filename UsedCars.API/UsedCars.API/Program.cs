@@ -22,6 +22,7 @@ builder.Services.AddDbContext<UsedCarsDbContext>(options =>
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISavedSearchRepository, SavedSearchRepository>();
+builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

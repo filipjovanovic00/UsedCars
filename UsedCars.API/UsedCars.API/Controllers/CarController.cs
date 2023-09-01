@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
+using UsedCars.API.Repositories.Interfaces;
 using UsedCarsWebApi.Models;
 using UsedCarsWebApi.Repositories.Contracts;
+using System.Reflection;
 
 namespace UsedCars.API.Controllers;
 
@@ -13,11 +15,15 @@ namespace UsedCars.API.Controllers;
 public class CarController : ControllerBase
 {
     private readonly ICarRepository _carRepository;
+    private readonly IPictureRepository _pictureRepository;
     private readonly IWebHostEnvironment _hostEnvironment;
 
-    public CarController(ICarRepository carRepository, IWebHostEnvironment hostEnvironment)
+    public CarController(ICarRepository carRepository, 
+                            IPictureRepository pictureRepository,
+                            IWebHostEnvironment hostEnvironment)
     {
         _carRepository = carRepository;
+        _pictureRepository = pictureRepository;
         _hostEnvironment = hostEnvironment;
     }
 
@@ -318,6 +324,69 @@ public class CarController : ControllerBase
         {
             await _carRepository.DeleteCarAsync(id);
 
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "ADMIN,USER")]
+    [Route("addcar")]
+    public async Task<IActionResult> AddCar([FromBody] AddCarDto addCarDto)
+    {
+        try
+        {
+            var userClaims = User as ClaimsPrincipal;
+            var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Guid uid = Guid.Parse(userId);
+
+            Guid cid = Guid.NewGuid();
+
+            var car = addCarDto.ConvertToCar(uid, cid);
+            await _carRepository.AddCarAsync(car);
+
+            int x = 0;
+
+            List<string> pictures = new List<string> {
+                addCarDto.Pictures.Picture1,
+                addCarDto.Pictures.Picture2,
+                addCarDto.Pictures.Picture3,
+                addCarDto.Pictures.Picture4,
+                addCarDto.Pictures.Picture5,
+                addCarDto.Pictures.Picture6,
+            };
+
+            foreach (string picture in pictures)
+            {
+                if (picture != null)
+                {
+                    x++;
+
+                    string fileName = $"{car.Mark}{car.Model}_{x}.jpg";
+
+                    byte[] imageBytes = Convert.FromBase64String(picture);
+
+                    string projectPath = _hostEnvironment.ContentRootPath;
+                    string fullPath = Path.Combine(projectPath, "Pictures");
+
+                    string imagePath = Path.Combine(fullPath, fileName);
+
+                    System.IO.File.WriteAllBytes(imagePath, imageBytes);
+
+                    var pic = new Picture
+                    {
+                        Id = Guid.NewGuid(),
+                        Path = fileName,
+                        CarId = cid
+                    };
+
+                    await _pictureRepository.AddPictureAsync(pic);
+                }
+            }
+        
             return Ok();
         }
         catch (Exception ex)

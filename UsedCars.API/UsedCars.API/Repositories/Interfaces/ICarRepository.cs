@@ -22,7 +22,7 @@ public interface ICarRepository
     Task<IEnumerable<Car>> GetUsersApprovedCarsAsync(Guid userId);
     Task<IEnumerable<Car>> GetUsersNotApprovedCarsAsync(Guid userId);
     Task<CarDto> GetCarByIdAsync(Guid id);
-    Task<Car> AddCarAsync(Car car);
+    Task AddCarAsync(Car car);
     Task ApproveCarAsync(Guid id);
     Task DeleteCarAsync(Guid id);
 }

@@ -20,11 +20,10 @@ public class CarRepository : ICarRepository
         _usedCarsDbContext = usedCarsDbContext;
     }
 
-    public async Task<Car> AddCarAsync(Car car)
+    public async Task AddCarAsync(Car car)
     {
         await _usedCarsDbContext.Cars.AddAsync(car);
         await _usedCarsDbContext.SaveChangesAsync();
-        return car;
     }
 
     public async Task DeleteCarAsync(Guid id)
