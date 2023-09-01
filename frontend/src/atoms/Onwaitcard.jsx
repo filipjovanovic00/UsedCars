@@ -19,7 +19,7 @@ export default function Onwaitcard(props){
         <div className="card m-1 car-card-user" style={{width: "100%",border:'solid',borderColor:'#993333',backgroundColor:'#EEEFFF'}}>
             <div className="row g-0">
                 <div className="col-md-4">
-                    <img src={("data:image/jpeg;base64,"+props.car.picture) } className="img-fluid rounded-start rounded-end m-1" alt="..." style={{maxHeight:'287px',minHeight:'287px',maxWidth:'420px'}}></img>
+                    <img src={("data:image/jpeg;base64,"+props.car.picture) } className="img-fluid rounded-start rounded-end m-1" alt="..." style={{maxHeight:'287px',minHeight:'287px',maxWidth:'400px'}}></img>
                 </div>
                 <div className="col-md-8 pending-card">
                     <div className="card-body">
@@ -52,7 +52,7 @@ export default function Onwaitcard(props){
                             <div className="col-md-6 mx-0 px-0">
                             <div className="row justify-content-start m-2" >-
                                     <div className="col-md-6">
-                                        <p className="m-0 p-0 text-start" style={{color:'black',borderBottom:'solid',borderBottomWidth:'thin'}}><i className="fa-solid fa-arrow-right" style={{color: '#000205'}}></i> <b>{props.car.price}</b></p>
+                                        <p className="m-0 p-0 text-start" style={{color:'black',borderBottom:'solid',borderBottomWidth:'thin'}}><i className="fa-solid fa-arrow-right" style={{color: '#000205'}}></i> <b>{props.car.price} €</b></p>
                                     </div>
                                 </div>
                                 <div className="row justify-content-start m-2" >

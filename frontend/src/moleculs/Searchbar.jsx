@@ -32,12 +32,12 @@ export default function Searchbar(props){
     const openModal = () => {
         const x =(mark?"'"+mark.value+"', ":"") +
         (type?"'"+type.value+"' ,":"") +
-        (yearStart!==null?"'"+yearStart.value+"' ,":"") +
-        (yearEnd!==null?"'"+yearEnd.value+"' ,":"") +
+        (yearStart!==null?"'od "+yearStart.value+" god.' ,":"") +
+        (yearEnd!==null?"'do "+yearEnd.value+" god.' ,":"") +
         (gear?"'"+gear.value+"' ,":"") +
         (drive?"'"+drive.value+"' ,":"") +
-        (price?"'"+price+"' ,":"") +
-        (km?"'"+km+"' ,":"");
+        (price?"'"+price+" €' ,":"") +
+        (km?"'"+km+" km' ,":"");
         const y=((mark?"mark="+mark.value+"&":"") +
         (type?"type="+type.value+"&":"") +
         (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
@@ -131,7 +131,7 @@ export default function Searchbar(props){
     }*/
 
     const prepareSearch=async(e)=>{
-        setSearchParam((mark?"mark="+mark.value+"&":"") +
+        await setSearchParam((mark?"mark="+mark.value+"&":"") +
         (type?"type="+type.value+"&":"") +
         (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
@@ -139,6 +139,9 @@ export default function Searchbar(props){
         (drive?"drive="+drive.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
+        if (searchParam===""){
+            setSearchParam("none");
+        }
     }
 
     const searchIt=()=>{
@@ -341,11 +344,11 @@ export default function Searchbar(props){
                 </div>
                 <div className="row  pb-3 my-1 ">
                     <div className="col-md-4 offset-md-4 d-flex justify-content-center">
-                        <Link className="btn btn-success w-75 search-button" to={`search/${searchParam}`} onClick={searchIt}><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
+                        <Link className="btn btn-success w-75 search-button" to={`search/${searchParam}`} onClick={searchIt} ><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
                     </div>
                     <div className="col-md-4">
                         {localStorage.getItem("token")!=="" && localStorage.getItem("role")!==""?<div className="row justify-content-around">
-                            <button className="btn btn-success w-50 search-button" onClick={openModal}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
+                            <button className="btn btn-success w-50 search-button " onClick={openModal} ><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
                         </div>:<span></span>}
                         
                     </div>

@@ -67,7 +67,7 @@
     { value: 'Volkswagen', label: 'Volkswagen' },
     { value: 'Volvo', label: 'Volvo' },
     { value: 'Zastava', label: 'Zastava' },
-    { value: 'Skoda', label: 'Skoda' },
+    { value: 'Škoda', label: 'Škoda' },
     { value: 'Ostalo', label: 'Ostalo' }
 ];
 

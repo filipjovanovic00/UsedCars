@@ -94,7 +94,6 @@
 /* Senka oko kartica*/
 
 .car-card {
-  width: 300px;
   height: 300px;
   text-decoration: none;
   box-shadow: 0 1px 2px #5968B8; 
@@ -295,15 +294,7 @@
   opacity: 70%;
 }
 
-.left-column {
-  flex: 1;
-  overflow: auto;
-}
 
-.right-column {
-  position: sticky;
-  top: 20px;
-}
 
 /* Unos slika */
 

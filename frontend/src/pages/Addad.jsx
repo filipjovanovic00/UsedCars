@@ -3,6 +3,7 @@ import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../h
 import Select from 'react-select';
 import { Link } from "react-router-dom";
 import '../style/style.css'
+import axios from "axios";
 
 export default function Addad(){
 
@@ -16,7 +17,7 @@ export default function Addad(){
     const [gearBox,setGearBox]=useState("");
     const [description,setDescription]=useState("");
     const [location,setLocation]=useState("");
-    const [selectedImages, setSelectedImages] = useState({
+    const [pictures, setPictures] = useState({
             picture1:null,
             picture2:null,
             picture3:null,
@@ -30,6 +31,15 @@ export default function Addad(){
         value: `${currentYear - index}`,
         label: `${currentYear - index}`,
     }));
+
+    const addAd=async(e)=>{
+        try {
+            const response = await axios.post('https://localhost:5001/api/Car/caradd',{mark,model,type,});
+            alert("Oglas je uspesno dodat!")
+        } catch (error) {
+            alert("Oglas nije moguce dodati")
+        }
+    }
 
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -45,40 +55,45 @@ export default function Addad(){
     };
 
     const updatePiture1=(item)=>{
-        setSelectedImages({
-            ...selectedImages,
+        setPictures({
+            ...pictures,
             picture1: item, 
           });
     }
 
     const updatePiture2=(item)=>{
-        setSelectedImages(previousData=>{
-            return{...previousData,picture2:item}
-        });
+        setPictures({
+            ...pictures,
+            picture2: item, 
+          });
     }
 
     const updatePiture3=(item)=>{
-        setSelectedImages(previousData=>{
-            return{...previousData,picture3:item}
-        });
+        setPictures({
+            ...pictures,
+            picture3: item, 
+          });
     }
 
     const updatePiture4=(item)=>{
-        setSelectedImages(previousData=>{
-            return{...previousData,picture4:item}
-        });
+        setPictures({
+            ...pictures,
+            picture4: item, 
+          });
     }
 
     const updatePiture5=(item)=>{
-        setSelectedImages(previousData=>{
-            return{...previousData,picture5:item}
-        });
+        setPictures({
+            ...pictures,
+            picture5: item, 
+          });
     }
 
     const updatePiture6=(item)=>{
-        setSelectedImages(previousData=>{
-            return{...previousData,picture6:item}
-        });
+        setPictures({
+            ...pictures,
+            picture6: item, 
+          });
     }
 
     const handleMark = (selectedOption) => {
@@ -159,33 +174,23 @@ export default function Addad(){
     };
 
     const deleteImage = (imageKey) => {
-        setSelectedImages((previousData) => ({
+        setPictures((previousData) => ({
           ...previousData,
           [imageKey]: null,
         }));
       };
-
-    /*const addAd=async(e)=>{
-        try {
-            const response = await axios.post('http://localhost:8080/cars/search?id=2');
-            props.setCars(response.data.content);
-            props.setAfterSearch("yes");
-        } catch (error) {
-            setErrorSearch(error);
-        }
-    }*/
 
     return(
         <div className="container">
             <div className="row justify-content-center text-center m-5">
                 <h3>Formular za postavku oglasa</h3>
             </div>
-            <div className="row" style={{backgroundColor:'lightgray'}}>
+            <div className="row " style={{backgroundColor:'lightgray'}}>
                 <div className="col-md-12 m-1">
                     <h6 className="m-1"><i className="fa-solid fa-arrow-right" style={{color: '#000205'}}></i> Unos novog vozila kategorije <b>Automobil</b></h6>
                 </div>
             </div>
-            <div className="row mt-5">
+            <div className="row my-5">
                 <div className="row">
                     <h4 className="m-1"><i className="fa-solid fa-arrow-right" style={{color: '#000205'}}></i> Formular</h4>
                 </div>
@@ -422,9 +427,9 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture1?<div>
+                                    {pictures.picture1?<div>
                                                                     <img
-                                                                        src={("data:image/jpeg;base64,"+selectedImages.picture1)}
+                                                                        src={("data:image/jpeg;base64,"+pictures.picture1)}
                                                                         alt={`Selected picture1`}
                                                                         className="image-preview"
                                                                     />
@@ -449,8 +454,8 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture2?<div><img
-                                                                src={("data:image/jpeg;base64,"+selectedImages.picture2)}
+                                    {pictures.picture2?<div><img
+                                                                src={("data:image/jpeg;base64,"+pictures.picture2)}
                                                                 alt={`Selected picture2`}
                                                                 className="image-preview"
                                                             /><button className="btn btn-danger btn-sm delete-image-button mx-2"
@@ -473,8 +478,8 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture3?<div><img
-                                                                src={("data:image/jpeg;base64,"+selectedImages.picture3)}
+                                    {pictures.picture3?<div><img
+                                                                src={("data:image/jpeg;base64,"+pictures.picture3)}
                                                                 alt={`Selected picture`}
                                                                 className="image-preview"
                                                             /><button className="btn btn-danger btn-sm delete-image-button mx-2"
@@ -499,8 +504,8 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture4?<div><img
-                                                                src={("data:image/jpeg;base64,"+selectedImages.picture4)}
+                                    {pictures.picture4?<div><img
+                                                                src={("data:image/jpeg;base64,"+pictures.picture4)}
                                                                 alt={`Selected picture4`}
                                                                 className="image-preview"
                                                             /><button className="btn btn-danger btn-sm delete-image-button mx-2"
@@ -523,8 +528,8 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture5?<div><img
-                                                                src={("data:image/jpeg;base64,"+selectedImages.picture5)}
+                                    {pictures.picture5?<div><img
+                                                                src={("data:image/jpeg;base64,"+pictures.picture5)}
                                                                 alt={`Selected picture5`}
                                                                 className="image-preview"
                                                             /><button className="btn btn-danger btn-sm delete-image-button mx-2"
@@ -547,8 +552,8 @@ export default function Addad(){
                                     />
                                 </label>
                                 <div className="image-preview-container">
-                                    {selectedImages.picture6?<div><img
-                                                                src={("data:image/jpeg;base64,"+selectedImages.picture6)}
+                                    {pictures.picture6?<div><img
+                                                                src={("data:image/jpeg;base64,"+pictures.picture6)}
                                                                 alt={`Selected picture6`}
                                                                 className="image-preview"
                                                             /><button className="btn btn-danger btn-sm delete-image-button mx-2"
@@ -558,6 +563,11 @@ export default function Addad(){
                                                         </button></div>:<span></span>}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center p-0 my-3">
+                        <div className="col-md-2">
+                            <button type="button" className="btn btn-primary custom-btn-search w-100">Dodaj!</button>
                         </div>
                     </div>
                 </div>

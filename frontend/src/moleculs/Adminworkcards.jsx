@@ -9,7 +9,7 @@ export default function Adminworkcards(){
     useEffect(() => {
         const getCars=async(e)=>{
             try {
-                const response = await axios.get("https://localhost:5001/api/Car/");
+                const response = await axios.get("https://localhost:5001/api/Car/notapproved");
                 setCars(response.data);
             } catch (error) {
                 alert(error);
@@ -18,6 +18,11 @@ export default function Adminworkcards(){
         getCars();
     },[]);
 
+    const deleteCar = (id) => {
+        const updatedCars = cars.filter(car => car.id !== id);
+        setCars(updatedCars);
+    };
+
     return(
         <>
         {cars.length==0?(<div className="container  d-flex justify-content-center align-items-center" style={{height:'300px'}}> 
@@ -25,7 +30,7 @@ export default function Adminworkcards(){
                                                     <span className="visually-hidden">Loading...</span>
                                                 </div>
                                             </div>):(cars && cars.map((item) => (
-                                                        <Adminworkcard key={item.id} car={item}/>
+                                                        <div className="m-0 p-0 "><Adminworkcard key={item.id} car={item} deleteCar={deleteCar}/></div>
                                                     )))}
         </>
     )

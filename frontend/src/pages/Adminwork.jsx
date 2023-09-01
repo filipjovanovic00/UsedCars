@@ -18,7 +18,7 @@ export default function Adminwork(){
                     </li>
                 </ul>
             </div>
-            <div className="row m-0 p-0" style={{backgroundColor:'#5968B8'}}>
+            <div className="row m-0 p-2" style={{backgroundColor:'#5968B8'}}>
                 <Adminworkcards />
             </div>
         </div>

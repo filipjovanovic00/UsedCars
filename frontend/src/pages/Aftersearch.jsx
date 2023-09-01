@@ -8,22 +8,54 @@ export default function Aftersearch(){
     const {searchparam}= useParams();
     const [cars,setCars]=useState([]);
     const [extractedParams, setExtractedParams] = useState([]);
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState("10");
+    const [lastPage,setLastPage]=useState(false);
+
+    const firstPage=()=>{
+        setPage(0);
+        setLastPage(false);
+    };
+
+    const prevPage=()=>{
+        setPage(page-1);
+        setLastPage(false);
+    };
+    
+    const nextPage=()=>{
+        setPage(page+1)
+    };
 
     const searchIt=async(e)=>{
-        try {
-            var x = `https://localhost:5001/api/Car/approved?`+"pageNumber=1&" +
-            "pageSize=10&"+searchparam;
-            const response = await axios.get(x);
-            setCars(response.data);
-        } catch (error) {
-            alert(error);
+        if (searchparam==="none"){
+            try {
+                var x = `https://localhost:5001/api/Car/approved?`+`pageNumber=${page+1}&` +
+                `pageSize=${size}`;
+                const response = await axios.get(x);
+                setCars(response.data);
+                if (response.data.length < parseInt(size, 10)){
+                    setLastPage(true);
+                }
+            } catch (error) {
+                alert(error);
+            }
+        }else{
+            try {
+                var x = `https://localhost:5001/api/Car/approved?`+"pageNumber=1&" +
+                "pageSize=10&"+searchparam;
+                const response = await axios.get(x);
+                setCars(response.data);
+            } catch (error) {
+                alert(error);
+            }
         }
+        
     }
 
     useEffect(()=>{
         searchIt();
         extractParamsFromString();
-    },[])
+    },[page])
 
     const extractParamsFromString = () => {
         const params = searchparam.split('&');
@@ -62,7 +94,20 @@ export default function Aftersearch(){
                     <h4><b>{extractedParams.join(", ")}</b></h4>
                 </div>
             </div>
-            <Aftersearchcards cars={cars}/>
+            <div className="row align-items-center justify-content-around my-2 p-2" style={{backgroundColor:'lightgray',borderRadius:'10px'}}>
+                <div className='col-md-3 text-center'>
+                    <h4 style={{textDecoration:'underline'}}>Strana {page+1}</h4>
+                </div>
+                <div className="col-md-6 d-flex justify-content-center">
+                    <button className='btn btn-outline-succsess' type='button' disabled={page === 0 ? true : false} onClick={firstPage}>Prva </button>
+                    <button className='btn btn-outline-succsess' type='button' disabled={page === 0 ? true : false} onClick={prevPage}>Prethodna</button>
+                    <button className='btn btn-outline-succsess' type='button' disabled={true} >{page+1}</button>
+                    <button className='btn btn-outline-succsess' type='button' disabled={lastPage? true : false} onClick={nextPage}>Sledeća</button>
+                </div>
+            </div>
+            <div className="row">
+                <Aftersearchcards cars={cars}/>
+            </div>
         </div>
 
     );
