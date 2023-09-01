@@ -7,14 +7,15 @@ import axios from "axios";
 
 export default function Addad(){
 
+    const [error,setError]=useState("");
     const [mark,setMark]=useState("");
     const [model,setModel]=useState("");
-    const [type,setType]=useState("");
-    const [yearOfManifac,setYearOfManifac]=useState(null);
-    const [km,setKm]=useState("");
-    const [price,setPrice]=useState("");
+    const [carBody,setCarBody]=useState("");
+    const [year,setYear]=useState(null);
+    const [mileage,setMileage]=useState(null);
+    const [price,setPrice]=useState(null);
     const [driveType,setDriveType]=useState("");
-    const [gearBox,setGearBox]=useState("");
+    const [gearboxType,setGearboxType]=useState("");
     const [description,setDescription]=useState("");
     const [location,setLocation]=useState("");
     const [pictures, setPictures] = useState({
@@ -32,12 +33,50 @@ export default function Addad(){
         label: `${currentYear - index}`,
     }));
 
+    const checkAll = () => {
+        if (
+            !(
+                (mark && mark.value) &&
+                model &&
+                (year && year.value) &&
+                parseInt(mileage) &&
+                parseInt(price) &&
+                (carBody && carBody.value) &&
+                (driveType && driveType.value) &&
+                (gearboxType && gearboxType.value) &&
+                description &&
+                location
+            )
+        ) {
+            return false;
+        }
+    };
+
     const addAd=async(e)=>{
-        try {
-            const response = await axios.post('https://localhost:5001/api/Car/caradd',{mark,model,type,});
-            alert("Oglas je uspesno dodat!")
-        } catch (error) {
-            alert("Oglas nije moguce dodati")
+        if (checkAll()){
+            try {
+                const response = await axios.post('https://localhost:5001/api/Car/addcar',
+                {
+                    mark: mark ? mark.value : "",
+                    model,
+                    year: parseInt(year.value),
+                    mileage: parseInt(mileage),
+                    price: parseInt(price),
+                    carBody: carBody ? carBody.value : "",
+                    driveType: driveType ? driveType.value : "",
+                    gearboxType:gearboxType?gearboxType.value:"",
+                    description,
+                    location,
+                    pictures
+                });
+                alert("Oglas je uspesno dodat!");
+                setError("");
+            } catch (error) {
+                alert("Oglas nije moguce dodati");
+                alert(error)
+            }
+        }else{
+            setError("Molimo popunite sva polja. Hvala.");
         }
     }
 
@@ -108,20 +147,20 @@ export default function Addad(){
         setLocation(e.target.value);
     };
 
-    const handleType = (selectedOption) => {
-        setType(selectedOption);
+    const handleCarBody = (selectedOption) => {
+        setCarBody(selectedOption);
     };
 
     const handleAge = (selectedOption) => {
-        setYearOfManifac(selectedOption);
+        setYear(selectedOption);
     };
 
-    const handleKm = (e) => {
-        setKm(e.target.value);
+    const handleMileage = (e) => {
+        setMileage(e.target.value);
     };
 
     const handleGear = (selectedOption) => {
-        setGearBox(selectedOption);
+        setGearboxType(selectedOption);
     };
 
     const handleDrive = (selectedOption) => {
@@ -197,6 +236,7 @@ export default function Addad(){
                 <div className="row m-0 p-0" style={{backgroundColor:'lightgray',borderRadius:'10px'}}>
                     <div className="row m-0 p-0 ">
                         <h5><small>Sva polja su obavena <span style={{color:'red'}}>*</span></small></h5>
+                        {error!==""?<h5><small> <span style={{color:'red'}}>*</span></small></h5>:null}
                     </div>
                     <div className="row justify-content-center p-3 my-1">
                         <div className="col-md-3">
@@ -239,8 +279,8 @@ export default function Addad(){
                         </div>
                         <div className="col-md-3">
                             <Select options={optionsType}
-                                    value={type}
-                                    onChange={handleType}
+                                    value={carBody}
+                                    onChange={handleCarBody}
                                     isClearable
                                     isSearchable
                                     required
@@ -269,9 +309,9 @@ export default function Addad(){
                                 <input 
                                     type="number" 
                                     placeholder="Kilometraza"  
-                                    name="km"
-                                    value={km}
-                                    onChange={handleKm} 
+                                    name="mileage"
+                                    value={mileage}
+                                    onChange={handleMileage} 
                                     style={{flex:'1'}}
                                     required>
                                 </input>
@@ -280,7 +320,7 @@ export default function Addad(){
                         <div className="col-md-3">
                             <Select
                                 options={optionsGear}
-                                value={gearBox}
+                                value={gearboxType}
                                 onChange={handleGear}
                                 isClearable
                                 isSearchable
@@ -347,7 +387,7 @@ export default function Addad(){
                         <div className="col-md-3">
                             <Select
                                 options={carAgeOptions}
-                                value={yearOfManifac}
+                                value={year}
                                 onChange={handleAge}
                                 isClearable
                                 isSearchable
@@ -567,7 +607,7 @@ export default function Addad(){
                     </div>
                     <div className="row justify-content-center p-0 my-3">
                         <div className="col-md-2">
-                            <button type="button" className="btn btn-primary custom-btn-search w-100">Dodaj!</button>
+                            <button type="button" className="btn btn-primary custom-btn-search w-100" onClick={addAd}>Dodaj!</button>
                         </div>
                     </div>
                 </div>
