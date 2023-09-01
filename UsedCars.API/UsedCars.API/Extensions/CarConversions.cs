@@ -59,7 +59,15 @@ public static class CarConversions
             Year = car.Year,
             Mileage = car.Mileage,
             Pictures = base64,
-            Location = car.Location
+            Location = car.Location,
+            CarBody = car.CarBody,
+            DriveType = car.DriveType,
+            GearboxType = car.GearboxType,
+            Description = car.Description,
+            UserId = car.UserId,
+            UserName = car.UserName,
+            Phone = car.Phone,
+            Email = car.Email
         };
     }
 }

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 
 export default function Aftersearchcard(props){
     return(
-        <Link className="card m-2 car-card"  to={`carview/${props.car.id}`} style={{width: "100%",backgroundColor:'#097969',textDecoration:'none'}}>
+        <Link className="card m-2 car-card"  to={`carview/${props.car.id}`} style={{width: "100%",backgroundColor:'#EEEFFF',textDecoration:'none',border:'solid',borderColor:'black'}}>
             <div className="row g-0">
                 <div className="col-md-4">
-                    <img src={require('../images/car.jpg')/**("data:image/jpeg;base64,"+props.picture) */} className="img-fluid rounded-start rounded-end m-1" alt="..." ></img>
+                    <img src={("data:image/jpeg;base64,"+props.car.picture)} className="img-fluid rounded-start rounded-end m-1" alt="..."  style={{maxHeight:'287px',minHeight:'287px',maxWidth:'420px'}}></img>
                 </div>
                 <div className="col-md-8 ">
                     <div className="card-body">

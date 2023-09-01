@@ -52,7 +52,7 @@ public class CarController : ControllerBase
 
             foreach (var car in cars)
             {
-                var firstPicture = car.Pictures.FirstOrDefault();
+                var firstPicture = car.Pictures.FirstOrDefault(x => x.Path.Contains("_1"));
 
                 if (firstPicture != null)
                 {
@@ -94,7 +94,7 @@ public class CarController : ControllerBase
 
             foreach (var car in cars)
             {
-                var firstPicture = car.Pictures.FirstOrDefault();
+                var firstPicture = car.Pictures.FirstOrDefault(x => x.Path.Contains("_1"));
 
                 if (firstPicture != null)
                 {
@@ -137,7 +137,7 @@ public class CarController : ControllerBase
 
             foreach (var car in cars)
             {
-                var firstPicture = car.Pictures.FirstOrDefault();
+                var firstPicture = car.Pictures.FirstOrDefault(x => x.Path.Contains("_1"));
 
                 if (firstPicture != null)
                 {
@@ -184,7 +184,7 @@ public class CarController : ControllerBase
 
             foreach (var car in cars)
             {
-                var firstPicture = car.Pictures.FirstOrDefault();
+                var firstPicture = car.Pictures.FirstOrDefault(x => x.Path.Contains("_1"));
 
                 if (firstPicture != null)
                 {
@@ -231,7 +231,7 @@ public class CarController : ControllerBase
 
             foreach (var car in cars)
             {
-                var firstPicture = car.Pictures.FirstOrDefault();
+                var firstPicture = car.Pictures.FirstOrDefault(x => x.Path.Contains("_1"));
 
                 if (firstPicture != null)
                 {

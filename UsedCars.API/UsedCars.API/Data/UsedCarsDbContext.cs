@@ -690,45 +690,6 @@ public class UsedCarsDbContext : DbContext
         modelBuilder.Entity<SavedSearch>(builder =>
         {
             builder.ToTable("SavedSearches");
-
-            builder.HasData(
-                new SavedSearch
-                {
-                    Id = Guid.Parse("12a2e457-aed3-4350-a2c9-efdb4a0b13a8"),
-                    Search = "Mercedes C klasa",
-                    UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9")
-                },
-                new SavedSearch
-                {
-                    Id = Guid.Parse("de288baf-78ca-435d-b01b-57e98d84de4d"),
-                    Search = "Zastava 101",
-                    UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9")
-                },
-                new SavedSearch
-                {
-                    Id = Guid.Parse("2507ea60-34bd-4a14-966c-533cd60b0f1b"),
-                    Search = "Peugeot 206",
-                    UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491")
-                },
-                new SavedSearch
-                {
-                    Id = Guid.Parse("66809cf9-8021-4efb-a148-87cb2287da5b"),
-                    Search = "BMW 5",
-                    UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491")
-                },
-                new SavedSearch
-                {
-                    Id = Guid.Parse("c6abb9e1-c82b-4de3-abd5-a5732a1a490b"),
-                    Search = "Opel Astra",
-                    UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd")
-                },
-                new SavedSearch
-                {
-                    Id = Guid.Parse("91b70203-f1d9-4523-83f5-0c4e14d99257"),
-                    Search = "Audi A6",
-                    UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd")
-                }
-            );
         });
 
         modelBuilder.Entity<User>(builder =>

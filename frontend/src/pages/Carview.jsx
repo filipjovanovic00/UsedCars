@@ -27,13 +27,13 @@ export default function Carview(){
             <div className="row">
                 <div className="col-md-8 w-66  ">
                     <div className="row p-0 m-0">
-                        <h1 className="pt-3 pb-1"><b>{car.mark +car.model}</b></h1>
+                        <h1 className="pt-3 pb-1"><b>{car.mark} {car.model}</b></h1>
                         <small> <h3>{car.year} god.</h3></small>
                     </div>
-                    <div className="row">
-                        <Carousel />
+                    <div className="row ">
+                        <Carousel car={car.pictures}/>
                     </div>
-                    <div className="row m-3 p-3" style={{borderRadius:'15px',backgroundColor:'gray',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                    <div className="row mx-3 my-4 p-3" style={{borderRadius:'15px',backgroundColor:'gray',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                         <div className="row justify-content-start"><h4 style={{color:'white'}}><b>Informacije o vozilu:</b></h4></div>
                         <div className="row">
                             <div className="col-md-6">

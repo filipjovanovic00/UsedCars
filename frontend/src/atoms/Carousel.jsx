@@ -17,10 +17,10 @@ const RightArrow = ({ onClick }) => (
     </div>
 );
 
-export default function Carousel(){
+export default function Carousel(props){
 
     const settings = {
-      dots: false,
+      dots: true,
       infinite: true,
       speed: 500,
       fade: true,
@@ -35,24 +35,29 @@ export default function Carousel(){
     return (
       <div>
         <Slider {...settings}>
-            <div>
-                <img src={require('../images/car.jpg')/**("data:image/jpeg;base64,"+props.picture) */}  alt="..." style={{height:"510px",width:"300"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
+            {props.car && props.car.map((item,index)=>(
+                <div key={index}>
+                    <img src={("data:image/jpeg;base64,"+item)}  alt="..." style={{height:"510px",width:"300"}}></img>
+                </div>
+            ))}
+            {/*props.car[0]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[0])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null}
+            {props.car[1]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[1])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null}
+            {props.car[2]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[2])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null}
+            {props.car[3]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[3])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null}
+            {props.car[4]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[4])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null}
+            {props.car[5]?<div>
+                <img src={("data:image/jpeg;base64,"+props.car[5])}  alt="..." style={{height:"510px",width:"300"}}></img>
+            </div>:null*/}
         </Slider>
       </div>
     );
