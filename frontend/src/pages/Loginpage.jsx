@@ -13,13 +13,16 @@ export default function Loginpage(){
     const history = useNavigate();
 
     const whereJump=()=>{
-        history('/user');
+        if(localStorage.getItem('role')==="1"){
+            history('/admin');
+        }else{
+            history('/user');
+        }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         try {
-          const response = await axios.post('http://localhost:8080/auth/authenticate', {
+          const response = await axios.post('https://localhost:5001/api/User/login', {
             email,
             password,
           });
@@ -30,9 +33,9 @@ export default function Loginpage(){
           localStorage.setItem('lastName', response.data.lastName);
           localStorage.setItem('role', response.data.role);
           localStorage.setItem('isloged', 'yes');
+          setToken(response.data.token);
           whereJump();
         } catch (error) {
-          setError(error.response.data.accessToken);
           alert("Imamo problema sa konektovenjem sa bazom. Molimo pokusajte kasnije.Hvala!")
         }
       };
@@ -44,7 +47,7 @@ export default function Loginpage(){
                         <div className="login justify-content-center p-2">
                             <div className="row justify-content-center">
                             <h2 className="text-center" style={{color:'white'}}>Prijavi se!</h2>
-                            <form onSubmit={handleSubmit}>
+                            <div >
                                 <div className="form-group">
                                     <label className="form-label" htmlFor="email" style={{color:'white'}}>Email adresa</label>
                                     <input className="form-control" 
@@ -73,8 +76,8 @@ export default function Loginpage(){
                                         Unesite Vašu lozinku .
                                     </div>
                                 </div>
-                                <button className="btn btn-primary  my-4 custom-btn-search" >PRIJAVI SE!</button>
-                            </form>
+                                <button className="btn btn-primary  my-4 custom-btn-search" type="button" onClick={handleSubmit}>PRIJAVI SE!</button>
+                            </div>
                             </div>
                             <div className="row my-2 ">
                                 <div className="col-md-12">

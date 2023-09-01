@@ -22,6 +22,7 @@ export default function Carview(){
     },[]);
 
     return(
+        <>
         <div className="container my-0 p-1">
             <div className="row">
                 <div className="col-md-8 w-66  ">
@@ -125,11 +126,11 @@ export default function Carview(){
                     </div>
                     <div className="row my-5 p-1"style={{borderRadius:'15px',backgroundColor:'#097969',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
                         <div className="row " >
-                            <div className="col-md-3">
-                                <h4 className="my-2" style={{color:'white'}}>Vlasnik:</h4>
+                            <div className="col-md-4 text-break">
+                                <h4 className="my-2 " style={{color:'white',whiteSpace:"nowrap",lineHeight:'1'}}>Vlasnik:</h4>
                             </div>
                             <div className="col-md-6">
-                                <h4 className="my-2" style={{color:'white'}}>{car.userName}</h4>
+                                <h4 className="my-2 " style={{color:'white',whiteSpace:"nowrap",lineHeight:'1'}}>{car.userName}</h4>
                             </div>
                         </div>
                         <div className="row ">
@@ -153,5 +154,6 @@ export default function Carview(){
                 
             </div>
         </div>
+        </>
     );
 }

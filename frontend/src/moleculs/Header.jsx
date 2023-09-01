@@ -15,11 +15,11 @@ export default function Header(){
                                 <Link className="btn btn-primary mx-1" type="button" to="/login" style={{backgroundColor:"#212122",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}}>Prijavi se!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}}>Prijavi se</span></Link>
                                 <Link className="btn btn-primary mx-1" type="button" to="/registration" style={{backgroundColor:"#097969",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}}>Registruj se!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}}>Registruj se</span></Link>
                             </div>
                         </div>
                     </div>

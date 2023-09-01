@@ -35,7 +35,7 @@ export default function Profilepage(){
                 </ul>
             </div>
             <div className="row m-0 p-0" style={{backgroundColor:'#5968B8'}}>
-                        {activeTab === "tab1" ? <div className="m-0 p-0"><Myadds /></div>  
+                        {activeTab === "tab1" ? <div className="m-0 p-0" style={{minHeight:'400px'}}><Myadds /></div>  
                                 :(activeTab==="tab2"?<div className="m-0 p-0"><Onwaitcards /></div>
                                 :(activeTab==="tab3"?<div className="m-0 p-0"><Savedsearch /></div>
                                 :<div></div>))}

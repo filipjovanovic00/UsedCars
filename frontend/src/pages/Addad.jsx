@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
 import Select from 'react-select';
 import { Link } from "react-router-dom";
+import '../style/style.css'
 
 export default function Addad(){
 
@@ -13,6 +14,16 @@ export default function Addad(){
     const [price,setPrice]=useState("");
     const [driveType,setDriveType]=useState("");
     const [gearBox,setGearBox]=useState("");
+    const [description,setDescription]=useState("");
+    const [location,setLocation]=useState("");
+    const [selectedImages, setSelectedImages] = useState({
+            picture1:null,
+            picture2:null,
+            picture3:null,
+            picture4:null,
+            picture5:null,
+            picture6:null
+            });
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -20,12 +31,66 @@ export default function Addad(){
         label: `${currentYear - index}`,
     }));
 
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+    };
+
+    const updatePiture1=(item)=>{
+        setSelectedImages({
+            ...selectedImages,
+            picture1: item, 
+          });
+    }
+
+    const updatePiture2=(item)=>{
+        setSelectedImages(previousData=>{
+            return{...previousData,picture2:item}
+        });
+    }
+
+    const updatePiture3=(item)=>{
+        setSelectedImages(previousData=>{
+            return{...previousData,picture3:item}
+        });
+    }
+
+    const updatePiture4=(item)=>{
+        setSelectedImages(previousData=>{
+            return{...previousData,picture4:item}
+        });
+    }
+
+    const updatePiture5=(item)=>{
+        setSelectedImages(previousData=>{
+            return{...previousData,picture5:item}
+        });
+    }
+
+    const updatePiture6=(item)=>{
+        setSelectedImages(previousData=>{
+            return{...previousData,picture6:item}
+        });
+    }
+
     const handleMark = (selectedOption) => {
         setMark(selectedOption);
     };
 
-    const handleModel = (selectedOption) => {
-        setModel(selectedOption);
+    const handleModel = (e) => {
+        setModel(e.target.value);
+    };
+
+    const handleLocation = (e) => {
+        setLocation(e.target.value);
     };
 
     const handleType = (selectedOption) => {
@@ -36,8 +101,8 @@ export default function Addad(){
         setYearOfManifac(selectedOption);
     };
 
-    const handleKm = (selectedOption) => {
-        setKm(selectedOption);
+    const handleKm = (e) => {
+        setKm(e.target.value);
     };
 
     const handleGear = (selectedOption) => {
@@ -51,6 +116,54 @@ export default function Addad(){
     const handlePrice = (e) => {
         setPrice(e.target.value);
     };
+
+    const handleDescription = (e) => {
+        setDescription(e.target.value);
+    };
+
+    const handleFile1Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        updatePiture1(base64.slice(22));
+    };
+
+    const handleFile2Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        updatePiture2(base64.slice(22))
+    };
+
+    const handleFile3Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        updatePiture3(base64.slice(22))
+    };
+
+    const handleFile4Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        updatePiture4(base64.slice(22))
+    };
+
+    const handleFile5Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        updatePiture5(base64.slice(22))
+    };
+
+    const handleFile6Upload = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        console.log(base64);
+        updatePiture6(base64.slice(22))
+    };
+
+    const deleteImage = (imageKey) => {
+        setSelectedImages((previousData) => ({
+          ...previousData,
+          [imageKey]: null,
+        }));
+      };
 
     /*const addAd=async(e)=>{
         try {
@@ -121,12 +234,11 @@ export default function Addad(){
                         </div>
                         <div className="col-md-3">
                             <Select options={optionsType}
-                                    isMulti
                                     value={type}
                                     onChange={handleType}
                                     isClearable
                                     isSearchable
-                                    className="basic-multi-select"
+                                    required
                                     placeholder="Tip automobila"
                                     styles={{
                                         control: (provided, state) => ({
@@ -168,6 +280,7 @@ export default function Addad(){
                                 isClearable
                                 isSearchable
                                 placeholder="Menjac"
+                                required
                                 styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -193,6 +306,7 @@ export default function Addad(){
                                 isClearable
                                 isSearchable
                                 placeholder="Tip pogona"
+                                required
                                 styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -233,6 +347,7 @@ export default function Addad(){
                                 isClearable
                                 isSearchable
                                 placeholder="Godiste"
+                                required
                                 styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -249,6 +364,200 @@ export default function Addad(){
                                 }),
                                 }}
                             />
+                        </div>
+                        <div className="col-md-3">
+                            <div className="custom-input-wrapper" style={{display:'flex'}}>
+                                <input 
+                                    type="text" 
+                                    placeholder="Lokacija (grad ili opstina)"  
+                                    name="location"
+                                    value={location}
+                                    onChange={handleLocation} 
+                                    style={{flex:'1'}}
+                                    required>
+                                </input>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center p-3 my-1">
+                        <div className="col-md-5">
+                            <div className="custom-input-wrapper" style={{display:'flex'}}>
+                            <textarea
+                                value={description}
+                                name="description"
+                                placeholder="Opis automobila..."
+                                onChange={handleDescription}
+                                rows={5}
+                                cols={10}
+                                style={{
+                                    flex: '1',
+                                    border: '1px solid #ced4da',
+                                    padding: '8px',
+                                    color: '#000',
+                                    transition: 'border-color 0.2s, box-shadow 0.2s',
+                                }}
+                                required
+                                onFocus={(e) => {
+                                    e.target.style.borderColor = '#80bdff';
+                                    e.target.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+                                }}
+                                onBlur={(e) => {
+                                    e.target.style.borderColor = '#ced4da';
+                                    e.target.style.boxShadow = 'none';
+                                }}
+                            />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center p-0 my-1">
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile1Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture1?<div>
+                                                                    <img
+                                                                        src={("data:image/jpeg;base64,"+selectedImages.picture1)}
+                                                                        alt={`Selected picture1`}
+                                                                        className="image-preview"
+                                                                    />
+                                                                    <button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                                        onClick={() => deleteImage('picture1')}
+                                                                        >
+                                                                        <i className="fa-solid fa-trash"></i>
+                                                                    </button>
+                                                                    </div>:<span></span>}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile2Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture2?<div><img
+                                                                src={("data:image/jpeg;base64,"+selectedImages.picture2)}
+                                                                alt={`Selected picture2`}
+                                                                className="image-preview"
+                                                            /><button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                            onClick={() => deleteImage('picture2')}
+                                                            >
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button></div>:<span></span>}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile3Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture3?<div><img
+                                                                src={("data:image/jpeg;base64,"+selectedImages.picture3)}
+                                                                alt={`Selected picture`}
+                                                                className="image-preview"
+                                                            /><button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                            onClick={() => deleteImage('picture3')}
+                                                            >
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button></div>:<span></span>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center p-0 my-1">
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile4Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture4?<div><img
+                                                                src={("data:image/jpeg;base64,"+selectedImages.picture4)}
+                                                                alt={`Selected picture4`}
+                                                                className="image-preview"
+                                                            /><button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                            onClick={() => deleteImage('picture3')}
+                                                            >
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button></div>:<span></span>}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile5Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture5?<div><img
+                                                                src={("data:image/jpeg;base64,"+selectedImages.picture5)}
+                                                                alt={`Selected picture5`}
+                                                                className="image-preview"
+                                                            /><button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                            onClick={() => deleteImage('picture5')}
+                                                            >
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button></div>:<span></span>}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="image-upload-container">
+                                <label className="btn btn-success custom-btn image-upload-label my-3">
+                                    Unesi sliku <i className="fa-solid fa-image" style={{color: '#140000'}}></i>
+                                    <input
+                                    type="file"
+                                    accept=".png,.jpg,.jpeg"
+                                    onChange={(e) => handleFile6Upload(e)}
+                                    className="image-upload-input"
+                                    />
+                                </label>
+                                <div className="image-preview-container">
+                                    {selectedImages.picture6?<div><img
+                                                                src={("data:image/jpeg;base64,"+selectedImages.picture6)}
+                                                                alt={`Selected picture6`}
+                                                                className="image-preview"
+                                                            /><button className="btn btn-danger btn-sm delete-image-button mx-2"
+                                                            onClick={() => deleteImage('picture6')}
+                                                            >
+                                                            <i className="fa-solid fa-trash"></i>
+                                                        </button></div>:<span></span>}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

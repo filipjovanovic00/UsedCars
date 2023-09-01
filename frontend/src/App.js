@@ -13,9 +13,20 @@ import Profilepage from './pages/Profilepage';
 import Headeradmin from './moleculs/Headeradmin';
 import Adminwork from './pages/Adminwork';
 import Aftersearch from './pages/Aftersearch';
-import ProtectedRoutes from './auth/Protectedroutes';
+import ProtectedRoutesUser from './auth/Protectedroutesuser';
+import ProtectedRoutesAdmin from './auth/Protectedroutesadmin';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App() {
+
+  const token = localStorage.getItem('token');
+
+  useEffect(()=>{
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  },[])
 
   function Alllayout(){
     return(
@@ -58,23 +69,31 @@ function App() {
           <Route path="registration" element={<Registrationpage />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>
-        <Route  element={<ProtectedRoutes />}>
+        <Route  element={<ProtectedRoutesUser />}>
           <Route path="/user" element={<Userlayout />}>
             <Route index element={<Homepage />} />
-            <Route path="carview" element={<Carview />}/>
-            <Route path="registration" element={<Registrationpage />}/>
-            <Route path="login" element={<Loginpage />}/>
+            <Route path="carview/:id" element={<Carview />}/>
+            <Route path="profile/carview/:id" element={<Carview />}/>
+            <Route path="search/:searchparam" element={<Aftersearch />}/>
+            <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
             <Route path="addAd" element={<Addad />}/>
             <Route path="profile" element={<Profilepage />}/>
+            <Route path="profile/search/:searchparam" element={<Aftersearch />}/>
+            <Route path="profile/search/:searchparam/carview/:id" element={<Carview/>}/>
           </Route>
         </Route>
-        <Route  element={<ProtectedRoutes />}>
+        <Route  element={<ProtectedRoutesAdmin />}>
           <Route path="/admin" element={<Adminlayout />}>
             <Route index element={<Homepage />} />
-            <Route path="carview" element={<Carview />}/>
-            <Route path="registration" element={<Registrationpage />}/>
-            <Route path="addAd" element={<Adminwork />}/>
-            <Route path="login" element={<Loginpage />}/>
+            <Route path="carview/:id" element={<Carview />}/>
+            <Route path="profile/carview/:id" element={<Carview />}/>
+            <Route path="search/:searchparam" element={<Aftersearch />}/>
+            <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
+            <Route path="addAd" element={<Addad />}/>
+            <Route path="aproveAdds" element={<Adminwork />}/>
+            <Route path="profile" element={<Profilepage />}/>
+            <Route path="profile/search/:searchparam" element={<Aftersearch />}/>
+            <Route path="profile/search/:searchparam/carview/:id" element={<Carview/>}/>
           </Route>
         </Route>
 

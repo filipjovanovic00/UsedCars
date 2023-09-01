@@ -5,7 +5,7 @@ export default function Adminworkcard(props){
         <div className="card m-1" style={{width: "100%",backgroundColor:'gray'}}>
             <div className="row g-0">
                 <div className="col-md-4">
-                    <img src={require('../images/car.jpg')} className="img-fluid rounded-start rounded-end m-1" alt="..." ></img>
+                    <img src={require('../images/car.jpg')/*("data:image/jpeg;base64,"+props.picture) */} className="img-fluid rounded-start rounded-end m-1" alt="..." ></img>
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">

@@ -36,37 +36,7 @@ export default function Carousel(){
       <div>
         <Slider {...settings}>
             <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"300"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
-            </div>
-            <div>
-                <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>
+                <img src={require('../images/car.jpg')/**("data:image/jpeg;base64,"+props.picture) */}  alt="..." style={{height:"510px",width:"300"}}></img>
             </div>
             <div>
                 <img src={require('../images/car.jpg')}  alt="..." style={{height:"510px",width:"max"}}></img>

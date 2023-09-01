@@ -24,19 +24,31 @@ export default function Searchbar(props){
     const [saveSearchText,setSaveSearchText]=useState("no text");
     const [decodedToken,setDecodedToken]=useState('')
     const [showModal, setShowModal] = useState(false);
-    const [search,setSearch]=useState('');
-    const [searchForParam,setSearchForParam]=useState("eee")
+    const [searchShow,setSearchShow]=useState('');
+    const [search,setSearch]=useState("")
+    const [searchParam,setSearchParam]=useState('');
+    const userId=localStorage.getItem("id");
 
     const openModal = () => {
         const x =(mark?"'"+mark.value+"', ":"") +
-        (type?"'"+type.valueOf()+"' ,":"") +
+        (type?"'"+type.value+"' ,":"") +
         (yearStart!==null?"'"+yearStart.value+"' ,":"") +
         (yearEnd!==null?"'"+yearEnd.value+"' ,":"") +
         (gear?"'"+gear.value+"' ,":"") +
         (drive?"'"+drive.value+"' ,":"") +
         (price?"'"+price+"' ,":"") +
         (km?"'"+km+"' ,":"");
-        setSearch(x);
+        const y=((mark?"mark="+mark.value+"&":"") +
+        (type?"type="+type.value+"&":"") +
+        (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
+        (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
+        (gear?"gear="+gear.value+"&":"") +
+        (drive?"drive="+drive.value+"&":"") +
+        (price?"price="+price+"&":"") +
+        (km?"km="+km:""));
+        setSearchShow(x);
+        setSearch(y);
+        setSearchParam(y);
         setShowModal(true);
     };
     
@@ -119,7 +131,7 @@ export default function Searchbar(props){
     }*/
 
     const prepareSearch=async(e)=>{
-        setSearchForParam((mark?"mark="+mark.value+"&":"") +
+        setSearchParam((mark?"mark="+mark.value+"&":"") +
         (type?"type="+type.value+"&":"") +
         (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
@@ -138,7 +150,6 @@ export default function Searchbar(props){
     },[mark,type,yearStart,yearEnd,gear,drive,price])
 
     const saveSearch=async(e)=>{
-        const userId="cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9";//localStorage.getItem("id");
         try {
             const response = await axios.post('https://localhost:5001/api/SavedSearch',{search,userId});
             alert("Pretraga je uspesno sacuvana!");
@@ -163,7 +174,7 @@ export default function Searchbar(props){
                         <div className="toast-body text-center">
                             <p className="text-break my-1 p-0">Da li ste sigurni da zelite da sacuvate trenutnu pretragu?</p>
                             <br></br>
-                            <p className="text-break my-0 p-0">{search}</p>
+                            <p className="text-break my-0 p-0">{searchShow}</p>
                             <div className="mt-2 pt-2 border-top">
                                 <button type="button" className="btn search-button m-1" onClick={saveSearch}>Sacuvaj!</button>
                                 <button type="button" className="btn btn-secondary m-1" onClick={closeModal}><i className="fa-solid fa-xmark" style={{color: '#000000'}}></i></button>
@@ -330,12 +341,13 @@ export default function Searchbar(props){
                 </div>
                 <div className="row  pb-3 my-1 ">
                     <div className="col-md-4 offset-md-4 d-flex justify-content-center">
-                        <Link className="btn btn-success w-75 search-button" to={`search/${searchForParam}`} onClick={searchIt}><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
+                        <Link className="btn btn-success w-75 search-button" to={`search/${searchParam}`} onClick={searchIt}><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
                     </div>
                     <div className="col-md-4">
-                            <div className="row justify-content-around">
-                                <button className="btn btn-success w-50 search-button" onClick={openModal}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
-                            </div>
+                        {localStorage.getItem("token")!=="" && localStorage.getItem("role")!==""?<div className="row justify-content-around">
+                            <button className="btn btn-success w-50 search-button" onClick={openModal}><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
+                        </div>:<span></span>}
+                        
                     </div>
                 </div>
                 

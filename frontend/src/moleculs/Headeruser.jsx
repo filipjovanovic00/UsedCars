@@ -28,15 +28,15 @@ export default function Headeruser(){
                                 <Link className="btn btn-primary mx-1" type="button" to="profile" style={{backgroundColor:"#212122",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}}>Moj profil!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}}>Moj profil</span></Link>
                                 <Link className="btn btn-primary mx-1" type="button" to="addAd" style={{backgroundColor:"#212122",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}}>Dodaj oglas!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}}>Dodaj oglas</span></Link>
                                 <Link className="btn btn-primary mx-1" type="button" to="/" style={{backgroundColor:"#097969",border:"none"}}
                                     onMouseOver={(e) => e.target.style.color = "#C1E1C1"}
                                     onMouseOut={(e) => e.target.style.color = "white"}>
-                                    <span className="" style={{color:"white",fontSize:"30px"}} onClick={logoutUser} to="/">Odjavi se!</span></Link>
+                                    <span className="" style={{color:"white",fontSize:"30px"}} onClick={logoutUser} to="/">Odjavi se</span></Link>
                             </div>
                         </div>
                     </div>
