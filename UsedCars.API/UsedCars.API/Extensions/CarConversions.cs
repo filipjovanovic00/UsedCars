@@ -6,7 +6,7 @@ namespace UsedCars.API.Extensions;
 
 public static class CarConversions
 {
-    public static IEnumerable<CarShorterDto> ConvertToCarShortherDto(this IEnumerable<Car> cars)
+    /*public static IEnumerable<CarShorterDto> ConvertToCarShortherDto(this IEnumerable<Car> cars, string base64)
     {
         return (from car in cars
                 select new CarShorterDto
@@ -16,23 +16,50 @@ public static class CarConversions
                     Model = car.Model,
                     Price = car.Price,
                     Year = car.Year,
-                    //Picture = car.Pictures[0]
+                    Picture = base64
                 }).ToList();
-    }
+    }*/
 
-    public static IEnumerable<CarShortDto> ConvertToCarShorthDto(this IEnumerable<Car> cars)
+    public static CarShorterDto ConvertToCarShortherDto(this Car car, string base64)
     {
-        return (from car in cars
-                select new CarShortDto
+        return new CarShorterDto
                 {
                     Id = car.Id,
                     Mark = car.Mark,
                     Model = car.Model,
                     Price = car.Price,
                     Year = car.Year,
-                    Mileage = car.Mileage,
-                    //Picture = car.Pictures[0],
-                    Location = car.Location
-                }).ToList();
+                    Picture = base64
+                };
+    }
+
+    public static CarShortDto ConvertToCarShorthDto(this Car car, string base64)
+    {
+        return new CarShortDto
+        {
+            Id = car.Id,
+            Mark = car.Mark,
+            Model = car.Model,
+            Price = car.Price,
+            Year = car.Year,
+            Mileage = car.Mileage,
+            Picture = base64,
+            Location = car.Location
+        };
+    }
+
+    public static CarDto2 ConvertToCarDto2(this CarDto car, List<string> base64)
+    {
+        return new CarDto2
+        {
+            Id = car.Id,
+            Mark = car.Mark,
+            Model = car.Model,
+            Price = car.Price,
+            Year = car.Year,
+            Mileage = car.Mileage,
+            Pictures = base64,
+            Location = car.Location
+        };
     }
 }

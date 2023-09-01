@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UsedCars.API.DTOs;
 using UsedCars.API.Extensions;
+using UsedCarsWebApi.Models;
 using UsedCarsWebApi.Repositories.Contracts;
 
 namespace UsedCars.API.Controllers;
@@ -12,10 +13,12 @@ namespace UsedCars.API.Controllers;
 public class CarController : ControllerBase
 {
     private readonly ICarRepository _carRepository;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public CarController(ICarRepository carRepository)
+    public CarController(ICarRepository carRepository, IWebHostEnvironment hostEnvironment)
     {
         _carRepository = carRepository;
+        _hostEnvironment = hostEnvironment;
     }
 
     [HttpGet]
@@ -35,6 +38,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var cars = await _carRepository.GetApprovedCarsAsync(pageNumber, pageSize, mark, type, yearStart, yearEnd, gear, drive, price, km);
 
             if (cars == null)
@@ -42,7 +48,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShorthDto();
+            var carsDto = new List<CarShortDto>();
+
+            foreach (var car in cars)
+            {
+                var firstPicture = car.Pictures.FirstOrDefault();
+
+                if (firstPicture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, firstPicture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    var carDto = car.ConvertToCarShorthDto(base64Image);
+
+                    carsDto.Add(carDto);
+                }
+            }
 
             return Ok(carsDto);
         }
@@ -59,6 +80,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var cars = await _carRepository.GetFirstApprovedCarsAsync();
 
             if (cars == null)
@@ -66,7 +90,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShortherDto();
+            var carsDto = new List<CarShorterDto>();
+
+            foreach (var car in cars)
+            {
+                var firstPicture = car.Pictures.FirstOrDefault();
+
+                if (firstPicture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, firstPicture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    var carDto = car.ConvertToCarShortherDto(base64Image);
+
+                    carsDto.Add(carDto);
+                }
+            }
 
             return Ok(carsDto);
         }
@@ -84,6 +123,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var cars = await _carRepository.GetNotApprovedCarsAsync();
 
             if (cars == null)
@@ -91,7 +133,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShorthDto();
+            var carsDto = new List<CarShortDto>();
+
+            foreach (var car in cars)
+            {
+                var firstPicture = car.Pictures.FirstOrDefault();
+
+                if (firstPicture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, firstPicture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    var carDto = car.ConvertToCarShorthDto(base64Image);
+
+                    carsDto.Add(carDto);
+                }
+            }
 
             return Ok(carsDto);
         }
@@ -109,6 +166,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var userClaims = User as ClaimsPrincipal;
             var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid id = Guid.Parse(userId);
@@ -120,7 +180,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShorthDto();
+            var carsDto = new List<CarShortDto>();
+
+            foreach (var car in cars)
+            {
+                var firstPicture = car.Pictures.FirstOrDefault();
+
+                if (firstPicture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, firstPicture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    var carDto = car.ConvertToCarShorthDto(base64Image);
+
+                    carsDto.Add(carDto);
+                }
+            }
 
             return Ok(carsDto);
         }
@@ -138,6 +213,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var userClaims = User as ClaimsPrincipal;
             var userId = userClaims.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid id = Guid.Parse(userId);
@@ -149,7 +227,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            var carsDto = cars.ConvertToCarShorthDto();
+            var carsDto = new List<CarShortDto>();
+
+            foreach (var car in cars)
+            {
+                var firstPicture = car.Pictures.FirstOrDefault();
+
+                if (firstPicture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, firstPicture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    var carDto = car.ConvertToCarShorthDto(base64Image);
+
+                    carsDto.Add(carDto);
+                }
+            }
 
             return Ok(carsDto);
         }
@@ -166,6 +259,9 @@ public class CarController : ControllerBase
     {
         try
         {
+            string projectPath = _hostEnvironment.ContentRootPath;
+            string fullPath = Path.Combine(projectPath, "Pictures");
+
             var carDto = await _carRepository.GetCarByIdAsync(id);
 
             if (carDto == null)
@@ -173,7 +269,22 @@ public class CarController : ControllerBase
                 return NotFound();
             }
 
-            return Ok(carDto);
+            var pictures = new List<string>();
+
+            foreach (var picture in carDto.Pictures)
+            {
+                if (picture != null)
+                {
+                    var imageBytes = System.IO.File.ReadAllBytes(Path.Combine(fullPath, picture.Path));
+                    var base64Image = Convert.ToBase64String(imageBytes);
+
+                    pictures.Add(base64Image);
+                }
+            }
+
+            var carDto2 = carDto.ConvertToCarDto2(pictures);
+
+            return Ok(carDto2);
         }
         catch (Exception ex)
         {

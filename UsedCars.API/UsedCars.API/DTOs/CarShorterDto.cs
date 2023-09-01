@@ -15,5 +15,6 @@ public class CarShorterDto
 
     public int Year { get; set; }
 
-    public Picture? Picture { get; set; }
+    // public Picture? Picture { get; set; }
+    public string? Picture { get; set; }
 }

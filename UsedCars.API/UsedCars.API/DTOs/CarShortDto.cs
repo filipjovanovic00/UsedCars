@@ -16,7 +16,7 @@ public class CarShortDto
 
     public long Mileage { get; set; }
 
-    public Picture? Picture { get; set; }
+    public string? Picture { get; set; }
 
     public string Location { get; set; }
 }
