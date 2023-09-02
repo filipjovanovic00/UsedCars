@@ -31,8 +31,7 @@ export default function Homepage(){
                                                 <div className="spinner-border my-5" role="status">
                                                     <span className="visually-hidden">Loading...</span>
                                                 </div>
-                                            </div>):(<Homecards cars={cars} />)}
-                                               
+                                            </div>):(<Homecards cars={cars} />)}                        
          </>
     )
 }

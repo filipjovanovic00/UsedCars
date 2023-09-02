@@ -96,16 +96,6 @@ function App() {
             <Route path="profile/search/:searchparam/carview/:id" element={<Carview/>}/>
           </Route>
         </Route>
-
-        {/*
-        <Route  element={<ProtectedRoutes />}>
-          <Route path="/user/*" element={<Userlayout />}>
-            <Route index  element={<Newsfeedd />} />
-            <Route path='profile' element={<Homepage />} />
-            <Route path='forum' element={<Forumapage />} />
-            <Route path='forum/theme/:id' element={<Theme />} />
-          </Route>
-        </Route>*/}
       </Routes>
     </Router>
   );
