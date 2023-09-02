@@ -347,13 +347,11 @@ export default function Searchbar(props){
                         <Link className="btn btn-success w-75 search-button" to={`search/${searchParam}`} onClick={searchIt} ><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
                     </div>
                     <div className="col-md-4">
-                        {localStorage.getItem("token")!=="" && localStorage.getItem("role")!==""?<div className="row justify-content-around">
+                        {(localStorage.getItem("token").length>2) ?<div className="row justify-content-around">
                             <button className="btn btn-success w-50 search-button " onClick={openModal} ><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
                         </div>:<span></span>}
-                        
                     </div>
                 </div>
-                
             </div>
         </div>
         </>
