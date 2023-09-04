@@ -9,20 +9,29 @@ export default function Carview(){
     const [car,setCar]=useState("");
     const [addCars, setAddCars]=useState("")
     const {id}= useParams();
+    const {mark}= useParams();
+
 
     const getAddCar=async(e)=>{
         try {
-            const response = await axios.get("https://localhost:5001/api/Car/approved?"+"pageNumber=1&" + "pageSize=10&"+`mark=${car.mark}`);
-            setAddCars(response.data);
+            const response = await axios.get("https://localhost:5001/api/Car/approved?"+"pageNumber=1&" + "pageSize=5&"+`mark=${mark}`);
+            let x=response.data;
+            x.forEach(element => {
+                if (element.id!==car.id){
+                    setAddCars(element);
+                }
+            });
         } catch (error) {
             alert(error);
         }
     }
     const getCar=async(e)=>{
         try {
-            const response = await axios.get("https://localhost:5001/api/Car/" + id);
-            setCar(response.data);
-            getAddCar();  
+            await axios.get("https://localhost:5001/api/Car/" + id)
+            .then(response => {
+                setCar(response.data);
+            })
+            .then(()=>{getAddCar()});
         } catch (error) {
             alert(error);
         }
@@ -172,9 +181,7 @@ export default function Carview(){
                         </div>
                     </div>
                     <div className="row my-5 p-1"style={{borderRadius:'15px',backgroundColor:'gray',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
-                        {addCars && addCars.map((item)=>{
-                            car.id!==item.id?<img src={("data:image/jpeg;base64,"+item.picture)}  alt="..." style={{height:"510px",width:"300"}}></img>:<span></span>
-                        })}
+                        {addCars? <img src={("data:image/jpeg;base64,"+addCars.picture)}  alt="..." style={{height:"300px",width:"300"}}></img>:<span>Prazno</span>}
                     </div>
                 </div>
                 

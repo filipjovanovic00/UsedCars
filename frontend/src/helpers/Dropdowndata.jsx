@@ -89,9 +89,9 @@ export const optionsGear = [
 ];
 
 export const optionsState = [
-    { value: 'Nije ostecen', label: 'Nije ostecen' },
-    { value: 'Ostecen-vozno stanje', label: 'Ostecen-vozno stanje' },
-    { value: 'Ostecen-nije u voznom stanju', label: 'Ostecen-nije u voznom stanju'}
+    { value: 'Nije oštećen', label: 'Nije oštećen' },
+    { value: 'Oštećen, može da se vozi', label: 'Oštećen, može da se vozi' },
+    { value: 'Oštećen, ne može da se vozi', label: 'Oštećen, ne može da se vozi'}
 ];
 
 export const optionsDrive = [

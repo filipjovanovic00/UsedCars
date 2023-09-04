@@ -41,7 +41,7 @@ export default function Aftersearch(){
             }
         }else{
             try {
-                var x = `https://localhost:5001/api/Car/approved?`+"pageNumber=1&" +
+                var x = `https://localhost:5001/api/Car/approved?`+ `pageNumber=${page+1}&` +
                 "pageSize=10&"+searchparam;
                 const response = await axios.get(x);
                 setCars(response.data);

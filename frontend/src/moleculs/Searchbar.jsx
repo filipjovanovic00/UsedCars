@@ -136,14 +136,14 @@ export default function Searchbar(props){
         console.log(decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']);
     }*/
 
-    const prepareSearch=async(e)=>{
-        await setSearchParam((mark?"mark="+mark.value+"&":"") +
+    const prepareSearch=()=>{
+        setSearchParam((mark?"mark="+mark.value+"&":"") +
         (type?"type="+type.value+"&":"") +
         (yearStart!==null?"yearStart="+yearStart.value+"&":"") +
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
         (gear?"gear="+gear.value+"&":"") +
         (drive?"drive="+drive.value+"&":"") +
-        (stateOfCar?"state="+stateOfCar.value+"&":"") +
+        (stateOfCar?"stateOfCar="+stateOfCar.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
         if (searchParam===""){

@@ -63,9 +63,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Alllayout />}>
           <Route index element={<Homepage />} />
-          <Route path="carview/:id" element={<Carview />}/>
+          <Route path="carview/:id/:mark" element={<Carview />}/>
           <Route path="search/:searchparam" element={<Aftersearch />}/>
-          <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
+          <Route path="search/:searchparam/carview/:id/:mark" element={<Carview/>}/>
           <Route path="registration" element={<Registrationpage />}/>
           <Route path="login" element={<Loginpage />}/>
         </Route>
@@ -73,27 +73,27 @@ function App() {
           <Route path="/user" element={<Userlayout />}>
             <Route index element={<Homepage />} />
             <Route path="carview/:id" element={<Carview />}/>
-            <Route path="profile/carview/:id" element={<Carview />}/>
+            <Route path="profile/carview/:id/:mark" element={<Carview />}/>
             <Route path="search/:searchparam" element={<Aftersearch />}/>
-            <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
+            <Route path="search/:searchparam/carview/:id/:mark" element={<Carview/>}/>
             <Route path="addAd" element={<Addad />}/>
             <Route path="profile" element={<Profilepage />}/>
             <Route path="profile/search/:searchparam" element={<Aftersearch />}/>
-            <Route path="profile/search/:searchparam/carview/:id" element={<Carview/>}/>
+            <Route path="profile/search/:searchparam/carview/:id/:mark" element={<Carview/>}/>
           </Route>
         </Route>
         <Route  element={<ProtectedRoutesAdmin />}>
           <Route path="/admin" element={<Adminlayout />}>
             <Route index element={<Homepage />} />
             <Route path="carview/:id" element={<Carview />}/>
-            <Route path="profile/carview/:id" element={<Carview />}/>
+            <Route path="profile/carview/:id/:mark" element={<Carview />}/>
             <Route path="search/:searchparam" element={<Aftersearch />}/>
-            <Route path="search/:searchparam/carview/:id" element={<Carview/>}/>
+            <Route path="search/:searchparam/carview/:id/:mark" element={<Carview/>}/>
             <Route path="addAd" element={<Addad />}/>
             <Route path="aproveAdds" element={<Adminwork />}/>
             <Route path="profile" element={<Profilepage />}/>
             <Route path="profile/search/:searchparam" element={<Aftersearch />}/>
-            <Route path="profile/search/:searchparam/carview/:id" element={<Carview/>}/>
+            <Route path="profile/search/:searchparam/carview/:id/:mark" element={<Carview/>}/>
           </Route>
         </Route>
       </Routes>
