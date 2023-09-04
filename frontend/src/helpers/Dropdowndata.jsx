@@ -91,11 +91,11 @@ export const optionsGear = [
 export const optionsState = [
     { value: 'Nije ostecen', label: 'Nije ostecen' },
     { value: 'Ostecen-vozno stanje', label: 'Ostecen-vozno stanje' },
-    { value: 'Ostecen-nije u voznom stanju', label: 'Ostecen-nije u voznom stanju' }
+    { value: 'Ostecen-nije u voznom stanju', label: 'Ostecen-nije u voznom stanju'}
 ];
 
 export const optionsDrive = [
-    { value: 'Prednji pogon', label: 'Prednji pogon' },
-    { value: 'Zadnji pogon', label: 'Zadnji pogon' },
-    { value: 'Pogon na sva cetiri tocka', label: 'Pogon na sva cetiri tocka' }
+    { value: 'Prednji', label: 'Prednji' },
+    { value: 'Zadnji', label: 'Zadnji' },
+    { value: 'Pogon na sva cetiri tocka', label: 'Pogon na sva cetiri tocka'}
 ];

@@ -27,7 +27,7 @@ export default function Searchbar(props){
     const [search,setSearch]=useState("")
     const [searchParam,setSearchParam]=useState('');
     const userId=localStorage.getItem("id");
-    const [state,setState]=useState("");
+    const [stateOfCar,setStateOfCar]=useState("");
 
     const openModal = () => {
         const x =(mark?"'"+mark.value+"', ":"") +
@@ -36,7 +36,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"'do "+yearEnd.value+" god.' ,":"") +
         (gear?"'"+gear.value+"' ,":"") +
         (drive?"'"+drive.value+"' ,":"") +
-        (state?"'"+state.value+" ' ,":"") +
+        (stateOfCar?"'"+stateOfCar.value+" ' ,":"") +
         (price?"'"+price+" €' ,":"") +
         (km?"'"+km+" km' ,":"");
         const y=((mark?"mark="+mark.value+"&":"") +
@@ -45,7 +45,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
         (gear?"gear="+gear.value+"&":"") +
         (drive?"drive="+drive.value+"&":"") +
-        (state?"state="+state.value+"&":"") +
+        (stateOfCar?"stateOfCar="+stateOfCar.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
         setSearchShow(x);
@@ -74,7 +74,7 @@ export default function Searchbar(props){
     };
 
     const handleState = (selectedOption) => {
-        setState(selectedOption);
+        setStateOfCar(selectedOption);
     };
 
     const handleType = (selectedOption) => {
@@ -143,7 +143,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
         (gear?"gear="+gear.value+"&":"") +
         (drive?"drive="+drive.value+"&":"") +
-        (state?"state="+state.value+"&":"") +
+        (stateOfCar?"state="+stateOfCar.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
         if (searchParam===""){
@@ -157,7 +157,7 @@ export default function Searchbar(props){
 
     useEffect(()=>{
         prepareSearch();
-    },[mark,type,yearStart,yearEnd,gear,drive,price])
+    },[mark,type,yearStart,yearEnd,gear,drive,price,stateOfCar])
 
     const saveSearch=async(e)=>{
         try {
@@ -351,7 +351,7 @@ export default function Searchbar(props){
                     <div className="col-md-3">
                         <Select
                                 options={optionsState}
-                                value={state}
+                                value={stateOfCar}
                                 onChange={handleState}
                                 isClearable
                                 isSearchable

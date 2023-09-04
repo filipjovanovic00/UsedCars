@@ -113,7 +113,7 @@ export default function Carview(){
                                         <p className="m-0 p-0" style={{color:'black'}}>Stanje: </p>
                                     </div>
                                     <div className="col-md-6">
-                                        <p className="m-0 p-0" style={{color:'black'}}><b>{car.state}</b></p>
+                                        <p className="m-0 p-0" style={{color:'black'}}><b>{car.stateOfCar}</b></p>
                                     </div>
                                 </div>
                             </div>
