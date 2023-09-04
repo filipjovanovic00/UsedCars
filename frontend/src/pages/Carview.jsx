@@ -7,19 +7,32 @@ import '../style/style.css';
 export default function Carview(){
 
     const [car,setCar]=useState("");
+    const [addCars, setAddCars]=useState("")
     const {id}= useParams();
 
-    useEffect(() => {
-        const getCar=async(e)=>{
-            try {
-                const response = await axios.get("https://localhost:5001/api/Car/" + id);
-                setCar(response.data);
-            } catch (error) {
-                alert(error);
-            }
+    const getAddCar=async(e)=>{
+        try {
+            const response = await axios.get("https://localhost:5001/api/Car/approved?"+"pageNumber=1&" + "pageSize=10&"+`mark=${car.mark}`);
+            setAddCars(response.data);
+        } catch (error) {
+            alert(error);
         }
+    }
+    const getCar=async(e)=>{
+        try {
+            const response = await axios.get("https://localhost:5001/api/Car/" + id);
+            setCar(response.data);
+            getAddCar();  
+        } catch (error) {
+            alert(error);
+        }
+    }
+
+    useEffect(() => {
         getCar();
     },[]);
+
+    
 
     return(
         <>
@@ -95,6 +108,14 @@ export default function Carview(){
                                         <p className="m-0 p-0" style={{color:'black'}}><b>{car.gearboxType}</b></p>
                                     </div>
                                 </div>
+                                <div className="row justify-content-start m-2" style={{borderBottom:'solid',borderBottomWidth:'thin'}}>
+                                    <div className="col-md-6 p-0">
+                                        <p className="m-0 p-0" style={{color:'black'}}>Stanje: </p>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <p className="m-0 p-0" style={{color:'black'}}><b>{car.state}</b></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -149,6 +170,11 @@ export default function Carview(){
                                 <h6 className="my-2" style={{color:'white'}}>{car.email}</h6>
                             </div>
                         </div>
+                    </div>
+                    <div className="row my-5 p-1"style={{borderRadius:'15px',backgroundColor:'gray',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
+                        {addCars && addCars.map((item)=>{
+                            car.id!==item.id?<img src={("data:image/jpeg;base64,"+item.picture)}  alt="..." style={{height:"510px",width:"300"}}></img>:<span></span>
+                        })}
                     </div>
                 </div>
                 

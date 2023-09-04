@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import '../style/style.css';
-import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
+import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType,optionsState } from "../helpers/Dropdowndata";
 import axios from "axios";
-import jwt_decode from 'jwt-decode';
 
 
 export default function Searchbar(props){
@@ -28,6 +27,7 @@ export default function Searchbar(props){
     const [search,setSearch]=useState("")
     const [searchParam,setSearchParam]=useState('');
     const userId=localStorage.getItem("id");
+    const [state,setState]=useState("");
 
     const openModal = () => {
         const x =(mark?"'"+mark.value+"', ":"") +
@@ -36,6 +36,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"'do "+yearEnd.value+" god.' ,":"") +
         (gear?"'"+gear.value+"' ,":"") +
         (drive?"'"+drive.value+"' ,":"") +
+        (state?"'"+state.value+" ' ,":"") +
         (price?"'"+price+" €' ,":"") +
         (km?"'"+km+" km' ,":"");
         const y=((mark?"mark="+mark.value+"&":"") +
@@ -44,6 +45,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
         (gear?"gear="+gear.value+"&":"") +
         (drive?"drive="+drive.value+"&":"") +
+        (state?"state="+state.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
         setSearchShow(x);
@@ -69,6 +71,10 @@ export default function Searchbar(props){
 
     const handleMark = (selectedOption) => {
         setMark(selectedOption);
+    };
+
+    const handleState = (selectedOption) => {
+        setState(selectedOption);
     };
 
     const handleType = (selectedOption) => {
@@ -137,6 +143,7 @@ export default function Searchbar(props){
         (yearEnd!==null?"yearEnd="+yearEnd.value+"&":"") +
         (gear?"gear="+gear.value+"&":"") +
         (drive?"drive="+drive.value+"&":"") +
+        (state?"state="+state.value+"&":"") +
         (price?"price="+price+"&":"") +
         (km?"km="+km:""));
         if (searchParam===""){
@@ -341,13 +348,38 @@ export default function Searchbar(props){
                             </input>
                         </div>
                     </div>
+                    <div className="col-md-3">
+                        <Select
+                                options={optionsState}
+                                value={state}
+                                onChange={handleState}
+                                isClearable
+                                isSearchable
+                                placeholder="Stanje automobila"
+                                styles={{
+                                control: (provided, state) => ({
+                                    ...provided,
+                                    borderRadius: '4px',
+                                    borderColor: state.isFocused ? '#80bdff' : '#ced4da',
+                                    boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0, 123, 255, 0.25)' : null,
+                                    '&:hover': {
+                                    borderColor: state.isFocused ? '#80bdff' : '#adb5bd',
+                                    },
+                                }),
+                                singleValue: (provided) => ({
+                                    ...provided,
+                                    color: '#000',
+                                }),
+                                }}
+                            />
+                    </div>
                 </div>
                 <div className="row  pb-3 my-1 ">
                     <div className="col-md-4 offset-md-4 d-flex justify-content-center">
                         <Link className="btn btn-success w-75 search-button" to={`search/${searchParam}`} onClick={searchIt} ><p className="m-0 p-0" style={{color:'white',textDecoration:'none'}}>Pretrazi</p></Link>
                     </div>
                     <div className="col-md-4">
-                        {(localStorage.getItem("token").length>2) ?<div className="row justify-content-around">
+                        {(localStorage.getItem("token").length) ?<div className="row justify-content-around">
                             <button className="btn btn-success w-50 search-button " onClick={openModal} ><p className="m-0 p-0" style={{color:'white'}}>Sacuvaj pretragu!</p></button>
                         </div>:<span></span>}
                     </div>

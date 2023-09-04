@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType } from "../helpers/Dropdowndata";
+import { optionsMark,optionsDrive,optionsGear,optionsKm,optionsType,optionsState } from "../helpers/Dropdowndata";
 import Select from 'react-select';
 import { Link } from "react-router-dom";
 import '../style/style.css'
@@ -26,6 +26,7 @@ export default function Addad(){
             picture5:null,
             picture6:null
             });
+    const [state,setState]=useState("");
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -41,6 +42,7 @@ export default function Addad(){
                 (year && year.value) &&
                 parseInt(mileage) &&
                 parseInt(price) &&
+                (state && state.value) &&
                 (carBody && carBody.value) &&
                 (driveType && driveType.value) &&
                 (gearboxType && gearboxType.value) &&
@@ -63,6 +65,7 @@ export default function Addad(){
                     mileage: parseInt(mileage),
                     price: parseInt(price),
                     carBody: carBody ? carBody.value : "",
+                    state: state ? state.value : "",
                     driveType: driveType ? driveType.value : "",
                     gearboxType:gearboxType?gearboxType.value:"",
                     description,
@@ -137,6 +140,10 @@ export default function Addad(){
 
     const handleMark = (selectedOption) => {
         setMark(selectedOption);
+    };
+
+    const handleState = (selectedOption) => {
+        setState(selectedOption);
     };
 
     const handleModel = (e) => {
@@ -452,6 +459,33 @@ export default function Addad(){
                                 }}
                             />
                             </div>
+                        </div>
+                    </div>
+                    <div className="row justify-content-center p-0 my-1">
+                        <div className="col-md-4">
+                        <Select
+                                options={optionsState}
+                                value={state}
+                                onChange={handleState}
+                                isClearable
+                                isSearchable
+                                placeholder="Stanje automobila"
+                                styles={{
+                                control: (provided, state) => ({
+                                    ...provided,
+                                    borderRadius: '4px',
+                                    borderColor: state.isFocused ? '#80bdff' : '#ced4da',
+                                    boxShadow: state.isFocused ? '0 0 0 0.2rem rgba(0, 123, 255, 0.25)' : null,
+                                    '&:hover': {
+                                    borderColor: state.isFocused ? '#80bdff' : '#adb5bd',
+                                    },
+                                }),
+                                singleValue: (provided) => ({
+                                    ...provided,
+                                    color: '#000',
+                                }),
+                                }}
+                            />
                         </div>
                     </div>
                     <div className="row justify-content-center p-0 my-1">

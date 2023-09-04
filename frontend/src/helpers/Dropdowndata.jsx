@@ -88,6 +88,12 @@ export const optionsGear = [
     { value: 'Automatski', label: 'Automatski' }
 ];
 
+export const optionsState = [
+    { value: 'Nije ostecen', label: 'Nije ostecen' },
+    { value: 'Ostecen-vozno stanje', label: 'Ostecen-vozno stanje' },
+    { value: 'Ostecen-nije u voznom stanju', label: 'Ostecen-nije u voznom stanju' }
+];
+
 export const optionsDrive = [
     { value: 'Prednji pogon', label: 'Prednji pogon' },
     { value: 'Zadnji pogon', label: 'Zadnji pogon' },
