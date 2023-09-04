@@ -26,7 +26,7 @@ export default function Addad(){
             picture5:null,
             picture6:null
             });
-    const [state,setState]=useState("");
+    const [stateOfCar,setStateOfCar]=useState("");
 
     const currentYear = new Date().getFullYear();
     const carAgeOptions = Array.from({ length: currentYear - 1949 }, (_, index) => ({
@@ -35,6 +35,7 @@ export default function Addad(){
     }));
 
     const checkAll = () => {
+        
         if (
             !(
                 (mark && mark.value) &&
@@ -42,7 +43,7 @@ export default function Addad(){
                 (year && year.value) &&
                 parseInt(mileage) &&
                 parseInt(price) &&
-                (state && state.value) &&
+                (stateOfCar && stateOfCar.value) &&
                 (carBody && carBody.value) &&
                 (driveType && driveType.value) &&
                 (gearboxType && gearboxType.value) &&
@@ -52,9 +53,11 @@ export default function Addad(){
         ) {
             return false;
         }
+        return true
     };
 
     const addAd=async(e)=>{
+        
         if (checkAll()){
             try {
                 const response = await axios.post('https://localhost:5001/api/Car/addcar',
@@ -65,7 +68,7 @@ export default function Addad(){
                     mileage: parseInt(mileage),
                     price: parseInt(price),
                     carBody: carBody ? carBody.value : "",
-                    state: state ? state.value : "",
+                    stateOfCar: stateOfCar ? stateOfCar.value : "",
                     driveType: driveType ? driveType.value : "",
                     gearboxType:gearboxType?gearboxType.value:"",
                     description,
@@ -143,7 +146,7 @@ export default function Addad(){
     };
 
     const handleState = (selectedOption) => {
-        setState(selectedOption);
+        setStateOfCar(selectedOption);
     };
 
     const handleModel = (e) => {
@@ -465,7 +468,7 @@ export default function Addad(){
                         <div className="col-md-4">
                         <Select
                                 options={optionsState}
-                                value={state}
+                                value={stateOfCar}
                                 onChange={handleState}
                                 isClearable
                                 isSearchable
