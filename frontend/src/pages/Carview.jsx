@@ -181,7 +181,7 @@ export default function Carview(){
                         </div>
                     </div>
                     <div className="row my-5 p-1"style={{borderRadius:'15px',backgroundColor:'gray',boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"}}>
-                        {addCars? <img src={("data:image/jpeg;base64,"+addCars.picture)}  alt="..." style={{height:"300px",width:"300"}}></img>:<span>Prazno</span>}
+                        {addCars? <img src={require(`../images/${car.mark}.jpg`)}  alt="..." style={{height:"300px",width:"300"}}></img>:<span>Prazno</span>}
                     </div>
                 </div>
                 
