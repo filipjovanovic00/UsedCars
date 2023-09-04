@@ -24,6 +24,8 @@ public class CarDto
 
     public string? Description { get; set; }
 
+    public string StateOfCar { get; set; }
+
     public string Location { get; set; }
 
     public Guid UserId { get; set; }

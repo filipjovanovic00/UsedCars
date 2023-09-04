@@ -22,6 +22,8 @@ public class Car
 
     public string? Description { get; set; }
 
+    public string StateOfCar { get; set; }
+
     public string Location { get; set; }
 
     public bool Approved { get; set; } = false;
