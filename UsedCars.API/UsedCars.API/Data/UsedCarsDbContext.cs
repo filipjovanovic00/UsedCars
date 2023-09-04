@@ -44,6 +44,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil ima domaće tablice, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Beograd"
@@ -60,6 +61,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "4x4",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil ima domaće tablice, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Niš"
@@ -76,6 +78,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil ima domaće tablice, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Novi Sad"
@@ -92,6 +95,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Kragujevac"
@@ -108,6 +112,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Kragujevac"
@@ -124,6 +129,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Beograd"
@@ -140,6 +146,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Kragujevac"
@@ -156,6 +163,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Novi Sad"
@@ -172,6 +180,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Zadnji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Kragujevac"
@@ -188,6 +197,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Niš"
@@ -204,6 +214,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Beograd"
@@ -220,6 +231,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Niš"
@@ -236,6 +248,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Automatski",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Kragujevac"
@@ -252,6 +265,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Niš"
@@ -268,6 +282,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Kragujevac"
@@ -284,6 +299,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil nije registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Beograd"
@@ -300,6 +316,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Novi Sad"
@@ -316,6 +333,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Niš"
@@ -332,6 +350,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "4x4",
                     GearboxType = "Automatski",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = true,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Beograd"
@@ -348,6 +367,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Zadnji",
                     GearboxType = "Manuelni 6 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = true,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Kragujevac"
@@ -364,6 +384,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, ne vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, ne može da se vozi",
                     Approved = false,
                     UserId = Guid.Parse("998902da-c58d-4963-ae0d-39079971e5cd"),
                     Location = "Novi Sad"
@@ -380,6 +401,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Manuelni 5 brzina",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Nije oštećen",
                     Approved = false,
                     UserId = Guid.Parse("cfeb0e5e-5d09-464a-82dd-fe5d39e45ad9"),
                     Location = "Niš"
@@ -396,6 +418,7 @@ public class UsedCarsDbContext : DbContext
                     DriveType = "Prednji",
                     GearboxType = "Automatski",
                     Description = "Automobil je registrovan, vodi se na prodavca i nije oštećen",
+                    StateOfCar = "Oštećen, može da se vozi",
                     Approved = false,
                     UserId = Guid.Parse("af19ba81-1376-4a55-b2f3-a0cb6782f491"),
                     Location = "Kragujevac"

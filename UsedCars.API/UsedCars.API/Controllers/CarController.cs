@@ -39,6 +39,7 @@ public class CarController : ControllerBase
         [FromQuery] string? drive,
         [FromQuery] int? price,
         [FromQuery] int? km,
+        [FromQuery] string? stateOfCar,
         [FromQuery] int pageNumber,
         [FromQuery] int pageSize)
     {
@@ -47,7 +48,7 @@ public class CarController : ControllerBase
             string projectPath = _hostEnvironment.ContentRootPath;
             string fullPath = Path.Combine(projectPath, "Pictures");
 
-            var cars = await _carRepository.GetApprovedCarsAsync(pageNumber, pageSize, mark, type, yearStart, yearEnd, gear, drive, price, km);
+            var cars = await _carRepository.GetApprovedCarsAsync(pageNumber, pageSize, mark, type, yearStart, yearEnd, gear, drive, price, km, stateOfCar);
 
             if (cars == null)
             {

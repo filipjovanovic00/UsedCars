@@ -44,7 +44,8 @@ public class CarRepository : ICarRepository
         string? gear = null,
         string? drive = null,
         int? price = null,
-        int? km = null)
+        int? km = null,
+        string? state = null)
     {
         var cars = _usedCarsDbContext.Cars
                 .Where(c => c.Approved)
@@ -91,6 +92,11 @@ public class CarRepository : ICarRepository
             cars = cars.Where(x => x.Mileage <= km);
         }
 
+        if(string.IsNullOrWhiteSpace(state) == false)
+        {
+            cars = cars.Where(x => x.StateOfCar.Contains(state));
+        }
+
         var skipResults = (pageNumber - 1) * pageSize;
 
         return await cars.Skip(skipResults).Take(pageSize).ToListAsync();
@@ -128,6 +134,7 @@ public class CarRepository : ICarRepository
                             DriveType = car.DriveType,
                             GearboxType = car.GearboxType,
                             Description = car.Description,
+                            StateOfCar = car.StateOfCar,
                             Location = car.Location,
                             UserId = user.Id,
                             UserName = user.FirstName + " " + user.LastName,

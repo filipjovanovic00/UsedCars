@@ -20,6 +20,8 @@ public class AddCarDto
 
     public string? Description { get; set; }
 
+    public string StateOfCar { get; set; }
+
     public string Location { get; set; }
 
     public AddPictureDto? Pictures { get; set; }
