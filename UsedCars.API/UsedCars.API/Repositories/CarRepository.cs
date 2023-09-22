@@ -94,7 +94,7 @@ public class CarRepository : ICarRepository
 
         if(string.IsNullOrWhiteSpace(state) == false)
         {
-            cars = cars.Where(x => x.StateOfCar.Contains(state));
+            cars = cars.Where(x => x.State.Contains(state));
         }
 
         var skipResults = (pageNumber - 1) * pageSize;
@@ -134,7 +134,7 @@ public class CarRepository : ICarRepository
                             DriveType = car.DriveType,
                             GearboxType = car.GearboxType,
                             Description = car.Description,
-                            StateOfCar = car.StateOfCar,
+                            State = car.State,
                             Location = car.Location,
                             UserId = user.Id,
                             UserName = user.FirstName + " " + user.LastName,

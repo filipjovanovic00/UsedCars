@@ -22,7 +22,7 @@ public class Car
 
     public string? Description { get; set; }
 
-    public string StateOfCar { get; set; }
+    public string State { get; set; }
 
     public string Location { get; set; }
 

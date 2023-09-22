@@ -64,7 +64,7 @@ public static class CarConversions
             DriveType = car.DriveType,
             GearboxType = car.GearboxType,
             Description = car.Description,
-            StateOfCar = car.StateOfCar,
+            State = car.State,
             UserId = car.UserId,
             UserName = car.UserName,
             Phone = car.Phone,
@@ -86,7 +86,7 @@ public static class CarConversions
             DriveType = addCarDto.DriveType,
             GearboxType = addCarDto.GearboxType,
             Description = addCarDto.Description,
-            StateOfCar = addCarDto.StateOfCar,
+            State = addCarDto.State,
             Location = addCarDto.Location,
             UserId = userId
         };
